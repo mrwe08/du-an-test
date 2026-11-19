@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/lakes",
+      "destination": "/data/lakes.json"
+    },
+    {
+      "source": "/api/species",
+      "destination": "/data/species.json"
+    },
+    {
+      "source": "/api/leaderboard",
+      "destination": "/data/leaderboard.json"
+    }
+  ]
+}
