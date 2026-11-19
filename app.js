@@ -105,6 +105,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   selectScenario('case_carp_authentic');
   loadWeatherDashboard();
   loadLeaderboard();
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 });
 
 // Tab Navigation
@@ -463,7 +466,11 @@ function selectLakeById(id) {
   if (lake) {
     showLakeDetail(lake);
     if (state.mapInstance) {
-      state.mapInstance.flyTo([lake.lat, lake.lng], 12, { duration: 1.2 });
+      state.mapInstance.flyTo([lake.lat, lake.lng], 13, { duration: 1.0 });
+    }
+    const mapContainer = document.getElementById('fishing-map');
+    if (mapContainer) {
+      mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 }

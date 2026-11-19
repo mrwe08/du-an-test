@@ -50,7 +50,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-  <link rel="stylesheet" href="styles.css?v=20261119_gmaps_locations_v17">
+  <link rel="stylesheet" href="styles.css?v=20261119_static_locations_v18">
 </head>
 <body class="bg-slate-950 text-slate-100 font-['Plus_Jakarta_Sans'] min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-white">
 
@@ -256,6 +256,1595 @@
         </div>
 
       </div>
+
+      <!-- ======================================================== -->
+      <!-- DANH SÁCH 30 ĐỊA ĐIỂM CÂU TOÀN QUỐC & CHỈ ĐƯỜNG GOOGLE MAPS -->
+      <!-- ======================================================== -->
+      <div class="mt-8 bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="p-2 bg-emerald-950/80 border border-emerald-700/60 rounded-xl text-emerald-400 shadow-md">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </span>
+              <h2 class="text-xl font-bold text-white">Danh Sách 30 Địa Điểm Câu Toàn Quốc & Chỉ Đường Google Maps</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1.5 ml-1">
+              Tra cứu thông tin chi tiết từng điểm câu, bấm <strong>"Xem Trên Bản Đồ"</strong> để định vị hoặc bấm <strong>"Google Maps"</strong> để nhận chỉ đường dẫn lối.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-cyan-300">
+              Tổng cộng: <strong class="text-white font-bold">30</strong> điểm câu
+            </span>
+          </div>
+        </div>
+
+        <!-- Grid 30 Địa Điểm Câu -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5" id="static-lakes-grid">
+          <!-- Card: Hồ Suối Hai (Ba Vì) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ tự nhiên chân núi Ba Vì
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Suối Hai (Ba Vì)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.7</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 6.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép Giòn</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Mè Hoa</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Ngạnh</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Ốc bươu ủ xốt tỏi ớt men rượu; Thính mè hạt cải rang thơm phức xả lửng.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(5)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Su%E1%BB%91i+Hai%2C+Ba+V%C3%AC%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Sông Mây (Trảng Bom) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ đập bán hoang dã
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Sông Mây (Trảng Bom)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.5</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Đồng Nai</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 5.5m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1010.2 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra Bò</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chim Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lóc Bông</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi chuối tây chín rục ủ mật mía, lòng gà tanh hoặc cám cá tra D1 câu chùm nho.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(6)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+S%C3%B4ng+M%C3%A2y%2C+Tr%E1%BA%A3ng+Bom%2C+%C4%90%E1%BB%93ng+Nai" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Đầm Sen (Quận 11) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-emerald-950/80 text-emerald-300 border-emerald-800/60 border rounded-md mb-1.5">
+                    Hồ dịch vụ thể thao giải trí
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Đầm Sen (Quận 11)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.4</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>TP. Hồ Chí Minh</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 2.8m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1007.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chim</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi Ấn Độ</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Bánh mì gối xay nhỏ bóp cốt dừa sữa đặc + vani; Cám tanh chuyên dụng câu đài.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(8)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=C%C3%B4ng+vi%C3%AAn+%C4%90%E1%BA%A7m+Sen%2C+S%E1%BB%91+3+H%C3%B2a+B%C3%ACnh%2C+Ph%C6%B0%E1%BB%9Dng+3%2C+Qu%E1%BA%ADn+11%2C+TP.+H%E1%BB%93+Ch%C3%AD+Minh" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Đồng Xanh - Đồng Nghệ -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ cảnh quan miền Trung
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Đồng Xanh - Đồng Nghệ
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Đà Nẵng</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 6.2m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1011.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chẽm</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Thát Lát</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi tôm đồng nhấp mép cỏ; Lure cá sắt vibrator đánh tầng đáy rãnh nước.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(9)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+%C4%90%E1%BB%93ng+Xanh+-+%C4%90%E1%BB%93ng+Ngh%E1%BB%87%2C+H%C3%B2a+Vang%2C+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Tuy Lai (Mỹ Đức) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Quần thể hồ ngập nước núi đá
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Tuy Lai (Mỹ Đức)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.7</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 4.5m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Cỏ</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lóc Tự Nhiên</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Diếc</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Ngô nếp non luộc sữa đậu nành; Mồi trùn chỉ câu diếc củ.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(10)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Tuy+Lai%2C+M%E1%BB%B9+%C4%90%E1%BB%A9c%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Tây (West Lake) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ tự nhiên đô thị
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Tây (West Lake)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.7</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 3.2m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.8 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Cỏ</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Ốc vặn ủ trứng vịt lộn + gạo rang (săn trắm đen); Ngô ngọt ủ chua thơm hoặc cám ngô rang mật ong (săn chép cụ).
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(13)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+T%C3%A2y%2C+T%C3%A2y+H%E1%BB%93%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Hàm Lợn (Suối Bàu, Sóc Sơn) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi tự nhiên thung lũng
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Hàm Lợn (Suối Bàu, Sóc Sơn)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.9</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 7.5m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1014.2 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+2 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi câu đài: Cám tanh vẩy mực + tơ nhện. Mồi săn hàng khủng: Ốc sống ủ hoa hồi, đập vỡ 30% xả ổ.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(14)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+H%C3%A0m+L%E1%BB%A3n%2C+S%C3%B3c+S%C6%A1n%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Định Công (Tự nhiên) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ tự nhiên đô thị
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Định Công (Tự nhiên)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 3.5m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trê</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Cám tanh tôm xay nhuyễn + bột đậu xanh rang (săn rô phi cụ); Bánh mì ngâm sữa bóp nhuyễn câu cá chép.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(15)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+%C4%90%E1%BB%8Bnh+C%C3%B4ng%2C+Ho%C3%A0ng+Mai%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Đồng Đò (Sóc Sơn) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi tự nhiên thung lũng
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Đồng Đò (Sóc Sơn)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.8</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 6.8m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.8 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Lá sắn non vò nát + ngô ủ mầm bia (săn trắm trắng); Cám thơm mộc câu trôi củ.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(16)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+%C4%90%E1%BB%93ng+%C4%90%C3%B2/@21.3147491,105.7723331,18.01z/data=!4m6!3m5!1s0x3134e3f28d5d1ea5:0x1f7a24791e083d0c!8m2!3d21.3141865!4d105.772304!16s%2Fg%2F11tss25rc7?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Câu Tam Hiệp (Dịch vụ) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-emerald-950/80 text-emerald-300 border-emerald-800/60 border rounded-md mb-1.5">
+                    Hồ câu dịch vụ chuyên nghiệp
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Câu Tam Hiệp (Dịch vụ)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.9</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 2.6m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1011.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Ốc vặn ủ men sống, cám D1 tanh thơm, mồi tơ nhện kết dính hạt đài; mồi giun đỏ câu cá trê.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(17)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+C%C3%A2u+Tam+Hi%E1%BB%87p/@20.9378273,105.7987898,15.38z/data=!4m6!3m5!1s0x3135adfe1013eccb:0x2401f76a7de5261b!8m2!3d20.9365968!4d105.8129401!16s%2Fg%2F11flvccb56?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Câu Đông Ngàn (Dịch vụ) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-emerald-950/80 text-emerald-300 border-emerald-800/60 border rounded-md mb-1.5">
+                    Hồ câu dịch vụ săn hàng
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Câu Đông Ngàn (Dịch vụ)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.8</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 3.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.2 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép Giòn</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Ốc khỏe đập dập 20% xả ổ, ngô ngọt ủ sữa non câu trắm trắng, cám thơm thảo mộc.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(18)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+C%C3%A2u+%C4%90%C3%B4ng+Ng%C3%A0n%2C+%C4%90%C3%B4ng+Anh%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Đập Sun (Dịch vụ) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-emerald-950/80 text-emerald-300 border-emerald-800/60 border rounded-md mb-1.5">
+                    Hồ đập dịch vụ sinh thái
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Đập Sun (Dịch vụ)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.7</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 4.8m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1014.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trê</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Gan lợn ủ tanh trộn bột bắp (săn trê củ); Ngô ủ bia hạt mềm câu trắm trắng.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(19)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+%C4%90%E1%BA%ADp+Sun%2C+Minh+Tr%C3%AD%2C+S%C3%B3c+S%C6%A1n%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Trị An (Vĩnh Cửu) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Lòng hồ thủy điện khổng lồ
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Trị An (Vĩnh Cửu)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.8</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Đồng Nai</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 12.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1009.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Hoàng Đế (Peacock Bass)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lăng Vàng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lóc</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chẽm</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Câu lure: Nhái hơi nhảy mặt nước, Minnow lặn 1.2m màu xanh dạ quang. Câu ngâm: Dế cơm, tép sông tươi, gan bò.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(20)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Tr%E1%BB%8B+An%2C+V%C4%A9nh+C%E1%BB%ADu%2C+%C4%90%E1%BB%93ng+Nai" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Dầu Tiếng -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi lớn nhất ĐNA
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Dầu Tiếng
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Tây Ninh</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 9.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1008.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lăng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Cỏ</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Thát Lát</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi bún thiu ủ phô mai con bò cười + cốt dừa (chuyên trị cá tra cụ); Mồi tôm sống nhấp chân đập.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(21)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+D%E1%BA%A7u+Ti%E1%BA%BFng%2C+%C4%90%E1%BB%8Bnh+An%2C+D%E1%BA%A7u+Ti%E1%BA%BFng%2C+B%C3%ACnh+D%C6%B0%C6%A1ng" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Hòa Bình (Sông Đà) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ thủy điện vùng cao
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Hòa Bình (Sông Đà)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>5.0</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hòa Bình</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 25.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1015.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen Thủy Quái</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chiên Sông Đà</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lăng Chấm</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Nheo</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi sống: Chạch bùn sống, giun đất khổng lồ (săn cá lăng/chiên); Ốc núi sông Đà giã dập.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(22)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Th%E1%BB%A7y+%C4%90i%E1%BB%87n+H%C3%B2a+B%C3%ACnh%2C+H%C3%B2a+B%C3%ACnh" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Ngư Trường Quần Đảo Hoàng Sa -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-red-950/80 text-amber-300 border-red-700/80 font-bold border rounded-md mb-1.5">
+                    Ngư trường biển đảo chủ quyền Việt Nam
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Ngư Trường Quần Đảo Hoàng Sa
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>5.0</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>TP. Đà Nẵng (Việt Nam)</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 45.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Ngừ Đại Dương</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Mú Đỏ San Hô</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Thu Bè</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Cam Biển Sâu</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi câu Jigging biển sâu (150g - 300g), mồi Popper mặt nước màu cá chuồn, mồi mực tươi sống câu ngâm đáy rạn san hô.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(23)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Qu%E1%BA%A7n+%C4%91%E1%BA%A3o+Ho%C3%A0ng+Sa%2C+TP.+%C4%90%C3%A0+N%E1%BA%B5ng%2C+Vi%E1%BB%87t+Nam" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Ngư Trường Quần Đảo Trường Sa -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-red-950/80 text-amber-300 border-red-700/80 font-bold border rounded-md mb-1.5">
+                    Ngư trường biển đảo chủ quyền Việt Nam
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Ngư Trường Quần Đảo Trường Sa
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>5.0</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Tỉnh Khánh Hòa (Việt Nam)</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 60.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Ngừ Vây Vàng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Mú Cọp</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Bè Trang</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Cờ Gòn</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi câu Lure biển khơi: Mồi cá giả Minnow chống chịu lực cắn lớn, mồi mực lá sống nhử tầng sâu 40m - 70m.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(24)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Qu%E1%BA%A7n+%C4%91%E1%BA%A3o+Tr%C6%B0%E1%BB%9Dng+Sa%2C+T%E1%BB%89nh+Kh%C3%A1nh+H%C3%B2a%2C+Vi%E1%BB%87t+Nam" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Núi Cốc (Thái Nguyên) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi du lịch sinh thái
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Núi Cốc (Thái Nguyên)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.5</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Thái Nguyên</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 25.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1014.2 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi ngô non luộc + cám gạo rang thơm + bột tỏi. Cá trắm đen thích mồi ốc bươu nghiền. Dùng phao lông công cá chép ăn rất nhạy.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(25)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+N%C3%BAi+C%E1%BB%91c/@21.5684375,105.6518467,13z/data=!3m1!4b1!4m6!3m5!1s0x3134dea8853204a9:0x23449a4c113da7c1!8m2!3d21.5815814!4d105.6969788!16s%2Fm%2F0cc905v?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Thác Bà (Yên Bái) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ thủy điện vùng cao Tây Bắc
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Thác Bà (Yên Bái)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Yên Bái</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 50.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Lăng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Câu cá lăng dùng mồi cá sống nhỏ (cá mương, cá rô) móc lưỡi đôi thả đáy sâu. Cá chép dùng ngô non + bột đậu nành rang.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(26)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+Th%C3%A1c+B%C3%A0/@21.726847,105.0130526,14.48z/data=!4m6!3m5!1s0x31335804d006b585:0x2aaf00943b154c4e!8m2!3d21.7272222!4d105.0213889!16s%2Fg%2F121nry42?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Cấm Sơn (Bắc Giang) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi tự nhiên miền Đông Bắc
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Cấm Sơn (Bắc Giang)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.3</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Bắc Giang</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 30.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.8 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi trùn quế + cám gạo cho cá chép. Mồi ốc bươu non cho cá trắm đen. Rau muống non cho cá trắm trắng.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(27)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+C%E1%BA%A5m+S%C6%A1n/@21.5352815,106.5285907,13z/data=!3m1!4b1!4m6!3m5!1s0x314aa70790e84a57:0xffc5df7d86a8a0de!8m2!3d21.5360888!4d106.5672462!16s%2Fm%2F0cc61b2?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Đại Lải (Vĩnh Phúc) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ du lịch sinh thái resort
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Đại Lải (Vĩnh Phúc)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.1</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Vĩnh Phúc</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 15.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi cám viên nén + ngô non cho cá chép. Cá rô phi thích mồi trùn quế hoặc mồi bột mì trộn tỏi.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(28)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/place/H%E1%BB%93+%C4%90%E1%BA%A1i+L%E1%BA%A3i/@21.3184838,105.7047125,15.9z/data=!4m6!3m5!1s0x3134e33e55555555:0xeef2ddebb1cf45a!8m2!3d21.3189269!4d105.7145801!16s%2Fg%2F120w3m6j?entry=ttu&amp;g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Phú Ninh (Quảng Nam) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi lớn miền Trung
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Phú Ninh (Quảng Nam)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.4</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Quảng Nam</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 35.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1011.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi trùn quế + tỏi nghiền cho cá chép. Cá lăng dùng mồi tép sống hoặc cá mương. Câu đáy sâu cho cá trắm đen.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(29)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Ph%C3%BA+Ninh%2C+N%C3%BAi+Th%C3%A0nh%2C+Qu%E1%BA%A3ng+Nam" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Đầm Lập An (Thừa Thiên Huế) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Đầm phá nước lợ ven biển
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Đầm Lập An (Thừa Thiên Huế)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.2</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Thừa Thiên Huế</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 5.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1010.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chẽm (Cá Vược)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả (Cá Lóc)</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Câu cá chẽm dùng mồi tôm sống hoặc mồi giả (lure) spoon bạc. Cá rô phi dùng mồi trùn quế thả nổi.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(30)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%C4%90%E1%BA%A7m+L%E1%BA%ADp+An%2C+L%C4%83ng+C%C3%B4%2C+Ph%C3%BA+L%E1%BB%99c%2C+Th%E1%BB%ABa+Thi%C3%AAn+Hu%E1%BA%BF" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Kẻ Gỗ (Hà Tĩnh) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ thủy lợi tự nhiên Bắc Trung Bộ
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Kẻ Gỗ (Hà Tĩnh)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.3</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Tĩnh</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 28.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1012.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Đen</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi ngô non luộc + cám viên cho cá chép. Cá trắm đen ở đáy ăn ốc bươu, trùn chỉ. Thả phao nổi cho cá trắm trắng.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(31)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+K%E1%BA%BB+G%E1%BB%97%2C+C%E1%BA%A9m+Xuy%C3%AAn%2C+H%C3%A0+T%C4%A9nh" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Búng Bình Thiên (An Giang) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ nước ngọt tự nhiên Đồng bằng sông Cửu Long
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Búng Bình Thiên (An Giang)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.5</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>An Giang</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 8.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1009.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra (Cá Tra Bò)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả (Cá Lóc)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trê</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi cá sống nhỏ (cá linh, cá mương) cho cá lóc. Cá tra dùng mồi bột cám viên. Cá trê thích mồi gan gà hoặc trùn quế.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(32)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=B%C3%BAng+B%C3%ACnh+Thi%C3%AAn%2C+An+Ph%C3%BA%2C+An+Giang" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Kênh Vĩnh Tế (An Giang - Kiên Giang) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Kênh đào lịch sử Tây Nam Bộ
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Kênh Vĩnh Tế (An Giang - Kiên Giang)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.2</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>An Giang / Kiên Giang</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 6.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1008.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả (Cá Lóc)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trê</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra (Cá Tra Bò)</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi nhái hoặc cá sống nhỏ cho cá lóc. Mồi trùn quế hoặc gan gà cho cá trê. Cá rô phi dùng mồi cám bột mì.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(33)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=K%C3%AAnh+V%C4%A9nh+T%E1%BA%BF%2C+Ch%C3%A2u+%C4%90%E1%BB%91c%2C+An+Giang" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Tuyền Lâm (Đà Lạt) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-cyan-950/80 text-cyan-300 border-cyan-800/60 border rounded-md mb-1.5">
+                    Hồ du lịch sinh thái cao nguyên
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Tuyền Lâm (Đà Lạt)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.4</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Lâm Đồng (Đà Lạt)</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 18.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1015.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi ngô non luộc + bột cám cho cá chép. Rau muống non cho cá trắm trắng. Trùn quế cho cá rô phi.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(34)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+Tuy%E1%BB%81n+L%C3%A2m%2C+Ph%C6%B0%E1%BB%9Dng+4%2C+%C4%90%C3%A0+L%E1%BA%A1t%2C+L%C3%A2m+%C4%90%E1%BB%93ng" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Lắk (Đắk Lắk) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Hồ nước ngọt tự nhiên Tây Nguyên
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Lắk (Đắk Lắk)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.5</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Đắk Lắk</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 12.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả (Cá Lóc)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi ngô non + trùn quế cho cá chép. Mồi nhái cho cá lóc. Mồi gan gà + tỏi cho cá trê. Rau muống cho cá trắm trắng.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(35)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+L%E1%BA%AFk%2C+Li%C3%AAn+S%C6%A1n%2C+L%E1%BA%AFk%2C+%C4%90%E1%BA%AFk+L%E1%BA%AFk" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Hồ Câu Vạn Phúc (Hà Đông, Hà Nội) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-emerald-950/80 text-emerald-300 border-emerald-800/60 border rounded-md mb-1.5">
+                    Hồ câu dịch vụ nội thành
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Hồ Câu Vạn Phúc (Hà Đông, Hà Nội)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>3.9</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Hà Nội</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 3.5m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1013.0 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chép</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Rô Phi</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trắm Trắng</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trôi</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi cám viên nén chuyên dụng + bột ngô. Cá chép thích mồi trùn quế + tỏi. Cá rô phi ăn mồi bột mì trộn tép khô.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(36)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=H%E1%BB%93+c%C3%A2u+V%E1%BA%A1n+Ph%C3%BAc%2C+V%E1%BA%A1n+Ph%C3%BAc%2C+H%C3%A0+%C4%90%C3%B4ng%2C+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Card: Sông Sài Gòn (Khu vực Bình Dương) -->
+          <div class="bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col justify-between space-y-3 shadow-md group hover:shadow-cyan-950/20">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 text-[10px] uppercase bg-amber-950/80 text-amber-300 border-amber-800/60 border rounded-md mb-1.5">
+                    Sông tự nhiên đoạn thượng nguồn
+                  </span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                    Sông Sài Gòn (Khu vực Bình Dương)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                  <span>4.0</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 flex-wrap">
+                <span class="flex items-center gap-1 text-slate-200 font-medium">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-cyan-400"></i>
+                  <span>Bình Dương / TP.HCM</span>
+                </span>
+                <span class="text-slate-600">•</span>
+                <span>Sâu 10.0m</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="gauge" class="w-3 h-3"></i> 1009.5 hPa
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Chẽm (Cá Vược)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Quả (Cá Lóc)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Tra (Cá Tra Bò)</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700/60">Cá Trê</span><span class="px-1.5 py-0.5 text-[10px] bg-slate-800/60 text-slate-400 rounded">+1 loài</span>
+              </div>
+
+              <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
+                <strong class="text-slate-300">Mồi:</strong> Mồi tôm sống / mồi giả lure cho cá chẽm. Mồi cá sống nhỏ cho cá lóc. Mồi gan gà + trùn quế cho cá trê.
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800/80 flex items-center gap-2">
+              <button onclick="selectLakeById(37)" class="flex-1 py-2 px-2.5 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>Xem Trên Bản Đồ</span>
+              </button>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BA%BFn+%C4%91%C3%B2+S%C3%B4ng+S%C3%A0i+G%C3%B2n%2C+L%C3%A1i+Thi%C3%AAu%2C+Thu%E1%BA%ADn+An%2C+B%C3%ACnh+D%C6%B0%C6%A1ng" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0" title="Mở chỉ đường trên Google Maps">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                <span>Google Maps</span>
+                <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </section>
 
@@ -727,7 +2316,7 @@
   </footer>
 
   <!-- App Script with Cache Busting -->
-  <script src="app.js?v=20261119_gmaps_locations_v17"></script>
+  <script src="app.js?v=20261119_static_locations_v18"></script>
   <script>
     lucide.createIcons();
   </script>
