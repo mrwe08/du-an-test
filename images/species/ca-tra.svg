@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2744"/>
+      <stop offset="100%" stop-color="#2a4a7f"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#708090"/>
+      <stop offset="50%" stop-color="#a9a9a9"/>
+      <stop offset="100%" stop-color="#d3d3d3"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="40%" stop-color="#ff8c00"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="220" rx="16" fill="url(#bg)"/>
+  <!-- Water caustics -->
+  <g opacity="0.06" fill="none" stroke="#fff" stroke-width="0.5">
+    <path d="M0,30 Q50,20 100,35 Q150,50 200,30 Q250,10 300,35 Q350,55 400,30"/>
+    <path d="M0,170 Q40,160 80,175 Q130,185 180,170 Q230,155 280,172 Q340,185 400,170"/>
+  </g>
+  <!-- Bubbles -->
+  <circle cx="42" cy="32" r="3" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  <circle cx="355" cy="40" r="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <circle cx="50" cy="175" r="2.5" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+  <!-- Fish body shadow -->
+  <ellipse cx="198" cy="116" rx="135" ry="45" fill="#000" opacity="0.12"/>
+  <!-- Dorsal fin -->
+  <path d="M155,66 L168,42 L185,46 L195,55 L200,66" fill="#696969" stroke="#808080" stroke-width="0.7" opacity="0.85"/>
+  <!-- Main body -->
+  <ellipse cx="195" cy="108" rx="135" ry="45" fill="url(#body)" stroke="#808080" stroke-width="0.5"/>
+  
+  
+  <!-- Lateral line -->
+  <path d="M75,106 C145,100 255,102 315,108" fill="none" stroke="#808080" stroke-width="0.8" opacity="0.35" stroke-dasharray="3,2"/>
+  <!-- Tail / Caudal fin -->
+  <path d="M318,82 L358,52 L365,78 L355,108 L365,138 L358,158 L318,130" fill="#696969" stroke="#808080" stroke-width="0.7"/>
+  
+  <!-- Anal fin -->
+  <path d="M228,152 L245,170 L265,168 L278,155" fill="#696969" stroke="#808080" stroke-width="0.6" opacity="0.8"/>
+  <!-- Pelvic fin -->
+  <path d="M165,148 L175,170 L192,164 L188,146" fill="#696969" stroke="#808080" stroke-width="0.5" opacity="0.75"/>
+  <!-- Pectoral fin -->
+  <path d="M100,116 L80,140 L97,146 L110,130" fill="#696969" stroke="#808080" stroke-width="0.5" opacity="0.75"/>
+  <!-- Gill cover -->
+  <path d="M96,86 Q102,108 96,130" fill="none" stroke="#808080" stroke-width="1.1" opacity="0.4"/>
+  <!-- Barbels (if any) -->
+  <line x1="62" y1="106" x2="38" y2="120" stroke="#808080" stroke-width="1.2" opacity="0.6"/><line x1="62" y1="108" x2="40" y2="128" stroke="#808080" stroke-width="1" opacity="0.5"/>
+  <!-- Head contour -->
+  <path d="M68,96 Q55,108 68,120" fill="none" stroke="#808080" stroke-width="1"/>
+  <!-- Mouth -->
+  <path d="M66,106 Q58,108 66,112" fill="none" stroke="#808080" stroke-width="1.1"/>
+  <!-- Eye -->
+  <circle cx="82" cy="98" r="8.5" fill="url(#eye)" filter="url(#glow)"/>
+  <circle cx="80" cy="96" r="2.8" fill="#111"/>
+  <circle cx="79" cy="95" r="1.1" fill="rgba(255,255,255,0.75)"/>
+  <!-- Species Label -->
+  <rect x="50" y="194" width="300" height="20" rx="10" fill="rgba(0,0,0,0.5)"/>
+  <text x="200" y="208" text-anchor="middle" fill="#38bdf8" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" letter-spacing="0.4">CÁ TRA (CÁ TRA BÒ) • Pangasianodon hypophthalmus</text>
+</svg>

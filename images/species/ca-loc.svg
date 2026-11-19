@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2e1a"/>
+      <stop offset="100%" stop-color="#2d4a2d"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b5323"/>
+      <stop offset="50%" stop-color="#556b2f"/>
+      <stop offset="100%" stop-color="#6b8e23"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="40%" stop-color="#ff8c00"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="220" rx="16" fill="url(#bg)"/>
+  <!-- Water caustics -->
+  <g opacity="0.06" fill="none" stroke="#fff" stroke-width="0.5">
+    <path d="M0,30 Q50,20 100,35 Q150,50 200,30 Q250,10 300,35 Q350,55 400,30"/>
+    <path d="M0,170 Q40,160 80,175 Q130,185 180,170 Q230,155 280,172 Q340,185 400,170"/>
+  </g>
+  <!-- Bubbles -->
+  <circle cx="42" cy="32" r="3" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  <circle cx="355" cy="40" r="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <circle cx="50" cy="175" r="2.5" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+  <!-- Fish body shadow -->
+  <ellipse cx="195" cy="116" rx="140" ry="42" fill="#000" opacity="0.12"/>
+  <!-- Dorsal fin -->
+  <path d="M100,68 L110,52 L130,50 L150,48 L170,50 L190,48 L210,50 L230,48 L250,52 L270,55 L285,62 L290,68" fill="#4a5d23" stroke="#8fbc8f" stroke-width="0.7" opacity="0.85"/>
+  <!-- Main body -->
+  <ellipse cx="192" cy="108" rx="140" ry="42" fill="url(#body)" stroke="#8fbc8f" stroke-width="0.5"/>
+  <g opacity="0.2" fill="#2d3a1a"><ellipse cx="130" cy="95" rx="8" ry="12"/><ellipse cx="160" cy="118" rx="7" ry="10"/><ellipse cx="195" cy="92" rx="9" ry="11"/><ellipse cx="225" cy="120" rx="8" ry="10"/><ellipse cx="255" cy="95" rx="7" ry="12"/><ellipse cx="280" cy="115" rx="6" ry="9"/><ellipse cx="145" cy="120" rx="6" ry="8"/><ellipse cx="210" cy="100" rx="7" ry="9"/><ellipse cx="240" cy="105" rx="8" ry="10"/><ellipse cx="270" cy="100" rx="6" ry="8"/></g>
+  <g opacity="0.12" fill="none" stroke="#8fbc8f" stroke-width="0.35">
+    <path d="M92,86 Q104,81 110,89 Q104,97 92,92Z"/>
+    <path d="M117,86 Q129,81 135,89 Q129,97 117,92Z"/>
+    <path d="M142,86 Q154,81 160,89 Q154,97 142,92Z"/>
+    <path d="M167,86 Q179,81 185,89 Q179,97 167,92Z"/>
+    <path d="M192,86 Q204,81 210,89 Q204,97 192,92Z"/>
+    <path d="M217,86 Q229,81 235,89 Q229,97 217,92Z"/>
+    <path d="M242,86 Q254,81 260,89 Q254,97 242,92Z"/>
+    <path d="M267,86 Q279,81 285,89 Q279,97 267,92Z"/>
+    <path d="M92,98 Q104,93 110,101 Q104,109 92,104Z"/>
+    <path d="M117,98 Q129,93 135,101 Q129,109 117,104Z"/>
+    <path d="M142,98 Q154,93 160,101 Q154,109 142,104Z"/>
+    <path d="M167,98 Q179,93 185,101 Q179,109 167,104Z"/>
+    <path d="M192,98 Q204,93 210,101 Q204,109 192,104Z"/>
+    <path d="M217,98 Q229,93 235,101 Q229,109 217,104Z"/>
+    <path d="M242,98 Q254,93 260,101 Q254,109 242,104Z"/>
+    <path d="M267,98 Q279,93 285,101 Q279,109 267,104Z"/>
+    <path d="M92,110 Q104,105 110,113 Q104,121 92,116Z"/>
+    <path d="M117,110 Q129,105 135,113 Q129,121 117,116Z"/>
+    <path d="M142,110 Q154,105 160,113 Q154,121 142,116Z"/>
+    <path d="M167,110 Q179,105 185,113 Q179,121 167,116Z"/>
+    <path d="M192,110 Q204,105 210,113 Q204,121 192,116Z"/>
+    <path d="M217,110 Q229,105 235,113 Q229,121 217,116Z"/>
+    <path d="M242,110 Q254,105 260,113 Q254,121 242,116Z"/>
+    <path d="M267,110 Q279,105 285,113 Q279,121 267,116Z"/>
+    <path d="M92,122 Q104,117 110,125 Q104,133 92,128Z"/>
+    <path d="M117,122 Q129,117 135,125 Q129,133 117,128Z"/>
+    <path d="M142,122 Q154,117 160,125 Q154,133 142,128Z"/>
+    <path d="M167,122 Q179,117 185,125 Q179,133 167,128Z"/>
+    <path d="M192,122 Q204,117 210,125 Q204,133 192,128Z"/>
+    <path d="M217,122 Q229,117 235,125 Q229,133 217,128Z"/>
+    <path d="M242,122 Q254,117 260,125 Q254,133 242,128Z"/>
+    <path d="M267,122 Q279,117 285,125 Q279,133 267,128Z"/>
+  </g>
+  <!-- Lateral line -->
+  <path d="M72,106 C142,100 252,102 312,108" fill="none" stroke="#8fbc8f" stroke-width="0.8" opacity="0.35" stroke-dasharray="3,2"/>
+  <!-- Tail / Caudal fin -->
+  <path d="M320,85 L348,65 L355,82 L350,108 L355,132 L348,148 L320,128" fill="#4a5d23" stroke="#8fbc8f" stroke-width="0.7"/>
+  
+  <!-- Anal fin -->
+  <path d="M228,152 L245,170 L265,168 L278,155" fill="#4a5d23" stroke="#8fbc8f" stroke-width="0.6" opacity="0.8"/>
+  <!-- Pelvic fin -->
+  <path d="M162,148 L172,170 L189,164 L185,146" fill="#4a5d23" stroke="#8fbc8f" stroke-width="0.5" opacity="0.75"/>
+  <!-- Pectoral fin -->
+  <path d="M97,116 L77,140 L94,146 L107,130" fill="#4a5d23" stroke="#8fbc8f" stroke-width="0.5" opacity="0.75"/>
+  <!-- Gill cover -->
+  <path d="M93,86 Q99,108 93,130" fill="none" stroke="#8fbc8f" stroke-width="1.1" opacity="0.4"/>
+  <!-- Barbels (if any) -->
+  
+  <!-- Head contour -->
+  <path d="M65,96 Q52,108 65,120" fill="none" stroke="#8fbc8f" stroke-width="1"/>
+  <!-- Mouth -->
+  <path d="M63,106 Q55,108 63,112" fill="none" stroke="#8fbc8f" stroke-width="1.1"/>
+  <!-- Eye -->
+  <circle cx="79" cy="98" r="8.5" fill="url(#eye)" filter="url(#glow)"/>
+  <circle cx="77" cy="96" r="2.8" fill="#111"/>
+  <circle cx="76" cy="95" r="1.1" fill="rgba(255,255,255,0.75)"/>
+  <!-- Species Label -->
+  <rect x="50" y="194" width="300" height="20" rx="10" fill="rgba(0,0,0,0.5)"/>
+  <text x="200" y="208" text-anchor="middle" fill="#38bdf8" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" letter-spacing="0.4">CÁ QUẢ (CÁ LÓC) • Channa striata</text>
+</svg>

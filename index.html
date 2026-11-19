@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FishMap VN - Bản Đồ Câu Cá & Kiểm Định Kỷ Lục AI</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            fishing: {
+              water: '#0c2d48',
+              deep: '#145da0',
+              accent: '#2e8bc0',
+              light: '#b1d4e0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet CSS & JS for Interactive Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Meta Anti-Cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <link rel="stylesheet" href="styles.css?v=20261119_gmaps_locations_v17">
+</head>
+<body class="bg-slate-950 text-slate-100 font-['Plus_Jakarta_Sans'] min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Brand -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('map')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white">
+          <i data-lucide="waves" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">FishMap VN</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-cyan-950 text-cyan-400 border border-cyan-800 rounded-full">AI Anti-Cheat</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium">Bản Đồ Câu Cá & Kiểm Định Kỷ Lục Thủy Quái</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-950/60 p-1.5 rounded-xl border border-slate-800/80">
+        <button onclick="switchTab('map')" id="nav-btn-map" class="nav-tab active-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-all">
+          <i data-lucide="map-pin" class="w-4 h-4"></i>
+          <span>Bản Đồ Điểm Câu</span>
+        </button>
+        <button onclick="switchTab('weather')" id="nav-btn-weather" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all">
+          <i data-lucide="cloud-sun" class="w-4 h-4"></i>
+          <span>Thời Tiết Cắn Câu</span>
+        </button>
+        <button onclick="switchTab('species')" id="nav-btn-species" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all">
+          <i data-lucide="utensils" class="w-4 h-4 text-amber-400"></i>
+          <span>Cá, Mồi & Bếp Cần Thủ</span>
+        </button>
+        <button onclick="switchTab('leaderboard')" id="nav-btn-leaderboard" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all">
+          <i data-lucide="trophy" class="w-4 h-4"></i>
+          <span>Bảng Kỷ Lục</span>
+        </button>
+      </nav>
+
+      <!-- Quick Action: AI Catch Verifier -->
+      <div class="flex items-center gap-3">
+        <button onclick="switchTab('verifier')" id="nav-btn-verifier" class="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          <i data-lucide="scan" class="w-4 h-4 animate-pulse"></i>
+          <span>Kiểm Định AI & Đăng Cá</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Bar -->
+  <div class="md:hidden flex overflow-x-auto gap-2 p-2 bg-slate-900 border-b border-slate-800 text-xs font-semibold">
+    <button onclick="switchTab('map')" class="mobile-tab px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-400 whitespace-nowrap">📍 Bản Đồ</button>
+    <button onclick="switchTab('weather')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🌦️ Thời Tiết</button>
+    <button onclick="switchTab('species')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🍲 Bếp & Món Ngon</button>
+    <button onclick="switchTab('leaderboard')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🏆 Kỷ Lục</button>
+    <button onclick="switchTab('verifier')" class="mobile-tab px-3 py-1.5 rounded-lg bg-cyan-600 text-white whitespace-nowrap">🤖 Kiểm Định AI</button>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: BẢN ĐỒ CÂU CÁ & HỒ CÂU -->
+    <!-- ========================================== -->
+    <section id="view-map" class="space-y-6">
+      
+      <!-- Top banner / Filter bar -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 p-5 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center gap-2">
+            <span>Bản Đồ Điểm Câu & Dự Báo Cá Cắn Câu</span>
+            <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800/80 px-2.5 py-0.5 rounded-full font-semibold">Cập nhật trực tiếp</span>
+          </h1>
+          <p class="text-sm text-slate-400 mt-1">Chọn hồ câu trên bản đồ để tra cứu loại cá, bài mồi phù hợp, áp suất khí quyển và thời điểm vàng đi câu.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div class="relative">
+            <select id="filter-region" onchange="filterLakes()" class="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 pr-8 focus:ring-2 focus:ring-cyan-500 outline-none">
+              <option value="all">📍 Toàn quốc (30 Điểm câu nổi tiếng)</option>
+              <option value="Việt Nam">🇻🇳 Biển Đảo: Hoàng Sa & Trường Sa</option>
+              <optgroup label="Miền Bắc">
+                <option value="Hà Nội">Hà Nội (Hồ Tây, Suối Hai, Đồng Đò, Tam Hiệp...)</option>
+                <option value="Thái Nguyên">Thái Nguyên (Hồ Núi Cốc)</option>
+                <option value="Yên Bái">Yên Bái (Hồ Thác Bà)</option>
+                <option value="Bắc Giang">Bắc Giang (Hồ Cấm Sơn)</option>
+                <option value="Vĩnh Phúc">Vĩnh Phúc (Hồ Đại Lải)</option>
+                <option value="Hòa Bình">Hòa Bình (Thủy Điện Sông Đà)</option>
+              </optgroup>
+              <optgroup label="Miền Trung">
+                <option value="Đà Nẵng">Đà Nẵng (Đồng Xanh - Đồng Nghệ)</option>
+                <option value="Thừa Thiên Huế">Thừa Thiên Huế (Đầm Lập An)</option>
+                <option value="Quảng Nam">Quảng Nam (Hồ Phú Ninh)</option>
+                <option value="Hà Tĩnh">Hà Tĩnh (Hồ Kẻ Gỗ)</option>
+              </optgroup>
+              <optgroup label="Tây Nguyên">
+                <option value="Lâm Đồng">Lâm Đồng - Đà Lạt (Hồ Tuyền Lâm)</option>
+                <option value="Đắk Lắk">Đắk Lắk (Hồ Lắk)</option>
+              </optgroup>
+              <optgroup label="Đông Nam Bộ">
+                <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh (Hồ Đầm Sen, Sông Sài Gòn)</option>
+                <option value="Bình Dương">Bình Dương (Sông Sài Gòn)</option>
+                <option value="Đồng Nai">Đồng Nai (Hồ Trị An, Hồ Sông Mây)</option>
+                <option value="Tây Ninh">Tây Ninh (Hồ Dầu Tiếng)</option>
+              </optgroup>
+              <optgroup label="Miền Tây (ĐBSCL)">
+                <option value="An Giang">An Giang (Hồ Búng Bình Thiên, Kênh Vĩnh Tế)</option>
+                <option value="Kiên Giang">Kiên Giang (Kênh Vĩnh Tế)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="relative">
+            <select id="filter-species" onchange="filterLakes()" class="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 pr-8 focus:ring-2 focus:ring-cyan-500 outline-none">
+              <option value="all">Tất cả loài cá</option>
+              <option value="Cá Trắm Đen">Cá Trắm Đen</option>
+              <option value="Cá Trắm Trắng">Cá Trắm Trắng (Trắm Cỏ)</option>
+              <option value="Cá Chép">Cá Chép</option>
+              <option value="Cá Rô Phi">Cá Rô Phi</option>
+              <option value="Cá Trôi">Cá Trôi</option>
+              <option value="Cá Trê">Cá Trê</option>
+              <option value="Cá Tra">Cá Tra Bò</option>
+              <option value="Cá Quả (Lóc)">Cá Quả / Lóc</option>
+              <option value="Cá Chẽm">Cá Chẽm (Vược)</option>
+              <option value="Cá Lăng">Cá Lăng</option>
+              <option value="Cá Ngừ">Cá Ngừ Đại Dương</option>
+            </select>
+          </div>
+
+          <button onclick="resetLakeFilters()" class="text-xs text-slate-400 hover:text-cyan-400 px-2 py-2 flex items-center gap-1 transition-colors">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Đặt lại</span>
+          </button>
+        </div>
+
+        <!-- Quick Sovereignty Navigation Shortcuts -->
+        <div class="w-full flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800/80">
+          <span class="text-xs font-bold text-amber-400 flex items-center gap-1 mr-1">
+            <span>🇻🇳</span> <span>Điểm nóng biển đảo:</span>
+          </span>
+          <button onclick="zoomToSovereignty('hoang-sa')" class="px-3 py-1 bg-red-950/80 hover:bg-red-900 border border-red-700/80 rounded-lg text-xs font-bold text-amber-300 transition-all flex items-center gap-1 shadow-md">
+            <span>📍 Quần Đảo Hoàng Sa (Đà Nẵng)</span>
+          </button>
+          <button onclick="zoomToSovereignty('truong-sa')" class="px-3 py-1 bg-red-950/80 hover:bg-red-900 border border-red-700/80 rounded-lg text-xs font-bold text-amber-300 transition-all flex items-center gap-1 shadow-md">
+            <span>📍 Quần Đảo Trường Sa (Khánh Hòa)</span>
+          </button>
+          <button onclick="zoomToSovereignty('all')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-slate-300 transition-all flex items-center gap-1">
+            <span>🗺️ Toàn Cảnh Biển Đảo Việt Nam</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Map & Sidebar Split Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Interactive Leaflet Map (Takes 8 cols) -->
+        <div class="lg:col-span-8 bg-slate-900 rounded-2xl border border-slate-800 p-2 shadow-2xl relative">
+          <div id="fishing-map" class="w-full h-[580px] rounded-xl z-0"></div>
+          
+          <!-- Map Legend Overlay -->
+          <div class="absolute bottom-6 left-6 z-10 bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-xs text-slate-300 shadow-xl space-y-1.5 hidden sm:block">
+            <div class="font-bold text-slate-100 flex items-center gap-1.5 mb-1">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Ghi chú điểm câu</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-cyan-500 border border-white"></span>
+              <span>Hồ thủy điện / Bán tự nhiên</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-500 border border-white"></span>
+              <span>Hồ sinh thái / Dịch vụ giải trí</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-500 border border-white"></span>
+              <span>Hồ tự nhiên nước ngọt</span>
+            </div>
+            <div class="flex items-center gap-2 pt-1 border-t border-slate-800">
+              <span class="w-3 h-3 rounded-full bg-red-600 border border-amber-400"></span>
+              <span class="font-bold text-amber-300">🇻🇳 Biển đảo chủ quyền Việt Nam</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected Lake Details Drawer / Card (Takes 4 cols) -->
+        <div class="lg:col-span-4 bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-2xl flex flex-col space-y-4 min-h-[580px]">
+          <div id="lake-detail-placeholder" class="flex-1 flex flex-col items-center justify-center text-center p-6 text-slate-500 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-cyan-400">
+              <i data-lucide="map" class="w-8 h-8 animate-bounce"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-300">Chọn một hồ câu trên bản đồ</h3>
+            <p class="text-xs text-slate-400 leading-relaxed max-w-xs">
+              Nhấp vào biểu tượng các mốc hồ câu trên bản đồ để xem chi tiết loài cá có trong hồ, bài mồi phù hợp, độ sâu và dự báo thời tiết khí áp cắn câu.
+            </p>
+          </div>
+
+          <div id="lake-detail-content" class="hidden flex-1 flex flex-col space-y-4">
+            <!-- Populated dynamically by JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: DỰ BÁO THỜI TIẾT CÂU CÁ & KHÍ ÁP -->
+    <!-- ========================================== -->
+    <section id="view-weather" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-sky-950/60 to-slate-900 p-6 rounded-2xl border border-sky-900/60 shadow-xl">
+        <div class="max-w-3xl">
+          <h1 class="text-2xl font-bold flex items-center gap-3">
+            <span class="bg-gradient-to-r from-cyan-400 to-sky-200 bg-clip-text text-transparent">Dự Báo Khí Tượng & Chỉ Số Cắn Câu (Solunar Fishing)</span>
+          </h1>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+            Áp suất khí quyển (Barometric Pressure) là yếu tố quyết định 80% hoạt động săn mồi của cá. Khi áp suất ổn định ở mức <strong>1010 - 1015 hPa</strong>, bóng khí của cá thư giãn, cá sẽ rời tầng đáy lên kiếm ăn mạnh nhất.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Location Selector for Weather -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="weather-location-cards">
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- Active Weather Deep Dive Widget -->
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-xl" id="weather-deep-dive">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: CẨM NANG CÁ, BÀI MỒI & BẾP CẦN THỦ -->
+    <!-- ========================================== -->
+    <section id="view-species" class="hidden space-y-6">
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
+            <span>Cẩm Nang Các Loài Cá, Bài Mồi & Món Ngon Chế Biến</span>
+            <span class="text-xs bg-amber-950 text-amber-300 border border-amber-800/80 px-2.5 py-0.5 rounded-full font-bold">Bếp Cần Thủ</span>
+          </h1>
+          <p class="text-sm text-slate-400 mt-1">Chi tiết tập tính sinh học, tầng nước hoạt động, bài mồi chuẩn và công thức chế biến các món đặc sản từ chiến tích câu được (Cá trắm đen nướng gỏi, Cá chép om dưa, Cá tra bò áp chảo...).</p>
+        </div>
+      </div>
+
+      <!-- Species Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="species-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: BẢNG XẾP HẠNG KỶ LỤC CÁ TO NHẤT -->
+    <!-- ========================================== -->
+    <section id="view-leaderboard" class="hidden space-y-6">
+      
+      <!-- Leaderboard Header -->
+      <div class="bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 p-6 rounded-2xl border border-amber-900/50 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </span>
+            <h1 class="text-2xl font-extrabold text-slate-100">Bảng Kỷ Lục Thủy Quái - Hall of Fame</h1>
+          </div>
+          <p class="text-sm text-slate-400 mt-1">
+            Chỉ những chiến tích đã vượt qua quy trình <strong>Kiểm định AI 4 bước</strong> (chống ảnh mạng, chống zoom 0.5x ăn gian) mới được ghi danh chính thức.
+          </p>
+        </div>
+
+        <button onclick="switchTab('verifier')" class="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/25">
+          <i data-lucide="scan" class="w-4 h-4"></i>
+          <span>Đăng Thử Thách Kỷ Lục Mới</span>
+        </button>
+      </div>
+
+      <!-- Filter Controls for Leaderboard -->
+      <div class="flex flex-wrap items-center gap-3 bg-slate-900 p-4 rounded-xl border border-slate-800">
+        <span class="text-xs font-semibold text-slate-400">Lọc theo:</span>
+        <select id="leaderboard-species-filter" onchange="loadLeaderboard()" class="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 outline-none">
+          <option value="all">Tất cả loài cá</option>
+          <option value="Cá Trắm Đen">Cá Trắm Đen</option>
+          <option value="Cá Trắm Trắng">Cá Trắm Trắng</option>
+          <option value="Cá Chép">Cá Chép</option>
+          <option value="Cá Rô Phi">Cá Rô Phi</option>
+          <option value="Cá Trê">Cá Trê</option>
+          <option value="Cá Trôi">Cá Trôi</option>
+          <option value="Cá Tra">Cá Tra Bò</option>
+          <option value="Cá Quả (Cá Lóc)">Cá Quả / Lóc</option>
+        </select>
+        <span class="text-xs text-slate-500">• 100% chiến tích có mã chứng nhận chống gian lận</span>
+      </div>
+
+      <!-- Leaderboard Cards / Table -->
+      <div id="leaderboard-container" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: PHÒNG KIỂM ĐỊNH AI CHỐNG GIAN LẬN (STAR FEATURE) -->
+    <!-- ========================================== -->
+    <section id="view-verifier" class="hidden space-y-6">
+      
+      <!-- Section Intro Banner -->
+      <div class="bg-gradient-to-r from-cyan-950/70 via-slate-900 to-blue-950/50 p-6 rounded-2xl border border-cyan-800/60 shadow-xl">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-900/60 text-cyan-300 border border-cyan-700/80 rounded-md">FishVision AI v2.4</span>
+              <span class="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                Engine Anti-Cheat Online
+              </span>
+            </div>
+            <h1 class="text-2xl font-black mt-2 text-white">Quy Trình Kiểm Định & Đo Đạc Chiến Tích Câu Cá AI</h1>
+            <p class="text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">
+              Hệ thống thực thi nghiêm ngặt <strong>4 bước kiểm tra</strong>: 
+              <span class="text-cyan-300">1) Quét nguồn ảnh mạng (Reverse Image Search)</span> → 
+              <span class="text-cyan-300">2) Nhận diện thấu kính 0.5x, góc chụp & đo đạc sinh trắc học</span> → 
+              <span class="text-cyan-300">3) Đối chiếu thông số cần thủ</span> → 
+              <span class="text-cyan-300">4) Đánh giá dung sai (≤15% chấp thuận cần thủ; >15% hạ về chuẩn AI hoặc từ chối)</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verification Workspace Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Panel: Input & Test Scenarios (Takes 5 cols) -->
+        <div class="lg:col-span-5 bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-6">
+          
+          <!-- Test Scenarios Quick Selector -->
+          <div class="space-y-2.5">
+            <label class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+              <i data-lucide="flask-conical" class="w-4 h-4"></i>
+              <span>Chọn Kịch Bản Kiểm Tra (Thực tế & Biên độ)</span>
+            </label>
+            <p class="text-[12px] text-slate-400">Chọn nhanh một trường hợp thực tế để kiểm tra khả năng bắt lỗi gian lận của AI:</p>
+
+            <div class="space-y-2" id="scenario-selector">
+              <!-- Scenario 1: Authentic Carp -->
+              <div onclick="selectScenario('case_carp_authentic')" class="scenario-card p-3 rounded-xl border border-slate-800 hover:border-emerald-500/80 bg-slate-950/60 hover:bg-slate-950 cursor-pointer transition-all flex items-start gap-3 active">
+                <div class="w-8 h-8 rounded-lg bg-emerald-950 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-800">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-200">1. Cá Chép Thật Chuẩn Thước Đo</span>
+                    <span class="text-[10px] bg-emerald-900/50 text-emerald-300 px-1.5 py-0.5 rounded font-mono">Dung sai ≤ 15%</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Khai 6.2kg / 68cm. AI ước tính 6.0kg. Chênh 3.3% → Chấp thuận số liệu cần thủ.</p>
+                </div>
+              </div>
+
+              <!-- Scenario 2: Fake weight black carp -->
+              <div onclick="selectScenario('case_black_carp_fake')" class="scenario-card p-3 rounded-xl border border-slate-800 hover:border-amber-500/80 bg-slate-950/60 hover:bg-slate-950 cursor-pointer transition-all flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-950 text-amber-400 flex items-center justify-center shrink-0 mt-0.5 border border-amber-800">
+                  <i data-lucide="scale" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-200">2. Cá Trắm Đen Khai Khống Cân Nặng</span>
+                    <span class="text-[10px] bg-amber-900/50 text-amber-300 px-1.5 py-0.5 rounded font-mono">Lệch > 15%</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Khai 15.0kg, AI đo đạc thực tế chỉ 7.5kg (Chênh 100%) → Hạ về số liệu AI.</p>
+                </div>
+              </div>
+
+              <!-- Scenario 3: 0.5x Ultra Wide cheat -->
+              <div onclick="selectScenario('case_zoom_05')" class="scenario-card p-3 rounded-xl border border-slate-800 hover:border-orange-500/80 bg-slate-950/60 hover:bg-slate-950 cursor-pointer transition-all flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-orange-950 text-orange-400 flex items-center justify-center shrink-0 mt-0.5 border border-orange-800">
+                  <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-200">3. Gian Lận Zoom 0.5x / Đẩy Cá Sát Ống Kính</span>
+                    <span class="text-[10px] bg-orange-900/50 text-orange-300 px-1.5 py-0.5 rounded font-mono">Phối cảnh cưỡng bức</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Dùng lens 13mm góc siêu rộng phóng đại con cá 2.45x → AI phát hiện & hiệu chỉnh.</p>
+                </div>
+              </div>
+
+              <!-- Scenario 4: Downloaded web photo -->
+              <div onclick="selectScenario('case_web_download')" class="scenario-card p-3 rounded-xl border border-slate-800 hover:border-red-500/80 bg-slate-950/60 hover:bg-slate-950 cursor-pointer transition-all flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-red-950 text-red-400 flex items-center justify-center shrink-0 mt-0.5 border border-red-800">
+                  <i data-lucide="ban" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-200">4. Ảnh Lấy Trên Mạng (Shutterstock / Web)</span>
+                    <span class="text-[10px] bg-red-900/50 text-red-300 px-1.5 py-0.5 rounded font-mono">Trùng lặp 98.7%</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Quét dHash & web fingerprint phát hiện ảnh mạng → Lập tức từ chối ở Bước 1.</p>
+                </div>
+              </div>
+
+              <!-- Scenario 5: Giant Catfish pass -->
+              <div onclick="selectScenario('case_catfish_giant')" class="scenario-card p-3 rounded-xl border border-slate-800 hover:border-cyan-500/80 bg-slate-950/60 hover:bg-slate-950 cursor-pointer transition-all flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-950 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5 border border-cyan-800">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-200">5. Thủy Quái Cá Tra Bò Khủng Đạt Chuẩn</span>
+                    <span class="text-[10px] bg-cyan-900/50 text-cyan-300 px-1.5 py-0.5 rounded font-mono">18.5kg Hợp Lệ</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Khai 18.5kg, AI tính 19.1kg (Lệch 3.1%) → Duyệt kỷ lục bảng vàng.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Angler Submission Form -->
+          <form id="catch-submission-form" onsubmit="event.preventDefault(); runAIVerification();" class="space-y-4 pt-4 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Thông Tin Khai Báo Của Cần Thủ</span>
+              <button type="button" onclick="enableCustomUpload()" id="btn-toggle-custom" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">
+                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                <span>Tải ảnh của bạn</span>
+              </button>
+            </div>
+
+            <!-- Custom file upload input (hidden by default unless user toggles) -->
+            <div id="custom-upload-box" class="hidden p-3 border-2 border-dashed border-cyan-700/60 rounded-xl bg-cyan-950/20 text-center space-y-1">
+              <input type="file" id="user-image-input" accept="image/*" onchange="handleUserImageSelect(event)" class="text-xs text-slate-300 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:bg-cyan-600 file:text-white" />
+              <p class="text-[11px] text-slate-400">Hỗ trợ JPG, PNG từ điện thoại. AI sẽ phân tích EXIF & thấu kính.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">Tên cần thủ</label>
+                <input type="text" id="input-angler-name" value="Nguyễn Văn Nam (Nam Cần Thủ)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none focus:border-cyan-500" required>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">Điểm hồ câu</label>
+                <select id="input-lake-name" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none focus:border-cyan-500">
+                  <optgroup label="Hà Nội & Miền Bắc">
+                    <option value="Hồ Tây (West Lake)">Hồ Tây (Tự nhiên - Hà Nội)</option>
+                    <option value="Hồ Suối Hai (Ba Vì)">Hồ Suối Hai (Ba Vì - Hà Nội)</option>
+                    <option value="Hồ Đồng Đò (Sóc Sơn)">Hồ Đồng Đò (Sóc Sơn - Hà Nội)</option>
+                    <option value="Hồ Hàm Lợn (Suối Bàu, Sóc Sơn)">Hồ Hàm Lợn (Sóc Sơn - Hà Nội)</option>
+                    <option value="Hồ Định Công (Tự nhiên)">Hồ Định Công (Hoàng Mai - Hà Nội)</option>
+                    <option value="Hồ Câu Tam Hiệp (Dịch vụ)">Hồ Câu Tam Hiệp (Thanh Trì - Hà Nội)</option>
+                    <option value="Hồ Câu Đông Ngàn (Dịch vụ)">Hồ Câu Đông Ngàn (Đông Anh - Hà Nội)</option>
+                    <option value="Hồ Đập Sun (Dịch vụ)">Hồ Đập Sun (Sóc Sơn - Hà Nội)</option>
+                    <option value="Hồ Câu Vạn Phúc (Hà Đông, Hà Nội)">Hồ Câu Vạn Phúc (Hà Đông - Hà Nội)</option>
+                    <option value="Hồ Núi Cốc (Thái Nguyên)">Hồ Núi Cốc (Thái Nguyên)</option>
+                    <option value="Hồ Thác Bà (Yên Bái)">Hồ Thác Bà (Yên Bái)</option>
+                    <option value="Hồ Cấm Sơn (Bắc Giang)">Hồ Cấm Sơn (Bắc Giang)</option>
+                    <option value="Hồ Đại Lải (Vĩnh Phúc)">Hồ Đại Lải (Vĩnh Phúc)</option>
+                    <option value="Hồ Hòa Bình (Sông Đà)">Hồ Hòa Bình (Thủy điện Sông Đà)</option>
+                  </optgroup>
+                  <optgroup label="Miền Trung">
+                    <option value="Hồ Đồng Xanh - Đồng Nghệ">Hồ Đồng Xanh - Đồng Nghệ (Đà Nẵng)</option>
+                    <option value="Đầm Lập An (Thừa Thiên Huế)">Đầm Lập An (Lăng Cô - Thừa Thiên Huế)</option>
+                    <option value="Hồ Phú Ninh (Quảng Nam)">Hồ Phú Ninh (Quảng Nam)</option>
+                    <option value="Hồ Kẻ Gỗ (Hà Tĩnh)">Hồ Kẻ Gỗ (Hà Tĩnh)</option>
+                  </optgroup>
+                  <optgroup label="Tây Nguyên">
+                    <option value="Hồ Tuyền Lâm (Đà Lạt)">Hồ Tuyền Lâm (Đà Lạt - Lâm Đồng)</option>
+                    <option value="Hồ Lắk (Đắk Lắk)">Hồ Lắk (Đắk Lắk)</option>
+                  </optgroup>
+                  <optgroup label="Miền Đông Nam Bộ">
+                    <option value="Hồ Trị An (Vĩnh Cửu)">Hồ Trị An (Vĩnh Cửu - Đồng Nai)</option>
+                    <option value="Hồ Sông Mây (Trảng Bom)">Hồ Sông Mây (Trảng Bom - Đồng Nai)</option>
+                    <option value="Hồ Dầu Tiếng">Hồ Dầu Tiếng (Tây Ninh)</option>
+                    <option value="Hồ Đầm Sen (Quận 11)">Hồ Đầm Sen (Quận 11 - TP.HCM)</option>
+                    <option value="Sông Sài Gòn (Khu vực Bình Dương)">Sông Sài Gòn (Bình Dương / TP.HCM)</option>
+                  </optgroup>
+                  <optgroup label="Miền Tây (ĐBSCL)">
+                    <option value="Hồ Búng Bình Thiên (An Giang)">Hồ Búng Bình Thiên (An Giang)</option>
+                    <option value="Kênh Vĩnh Tế (An Giang - Kiên Giang)">Kênh Vĩnh Tế (An Giang - Kiên Giang)</option>
+                  </optgroup>
+                  <optgroup label="Biển Đảo Chủ Quyền Việt Nam">
+                    <option value="Ngư Trường Quần Đảo Hoàng Sa">Ngư Trường Hoàng Sa (Đà Nẵng - VN)</option>
+                    <option value="Ngư Trường Quần Đảo Trường Sa">Ngư Trường Trường Sa (Khánh Hòa - VN)</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">Loài cá</label>
+                <select id="input-species" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-2 text-xs text-slate-100 outline-none focus:border-cyan-500">
+                  <option value="Cá Chép">Cá Chép</option>
+                  <option value="Cá Trắm Đen">Cá Trắm Đen</option>
+                  <option value="Cá Trắm Trắng">Cá Trắm Trắng</option>
+                  <option value="Cá Rô Phi">Cá Rô Phi</option>
+                  <option value="Cá Trê">Cá Trê</option>
+                  <option value="Cá Trôi">Cá Trôi</option>
+                  <option value="Cá Tra">Cá Tra</option>
+                  <option value="Cá Quả (Cá Lóc)">Cá Quả (Lóc)</option>
+                  <option value="Cá Chẽm (Cá Vược)">Cá Chẽm</option>
+                  <option value="Cá Lăng">Cá Lăng</option>
+                  <option value="Cá Ngừ Đại Dương">Cá Ngừ Đại Dương</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">Cân nặng (kg)</label>
+                <input type="number" step="0.1" id="input-weight" value="6.2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none focus:border-cyan-500 font-mono font-bold" required>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">Chiều dài (cm)</label>
+                <input type="number" step="0.5" id="input-length" value="68.0" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none focus:border-cyan-500 font-mono font-bold" required>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="btn-run-ai" class="w-full mt-2 py-3 px-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+              <span>KÍCH HOẠT KIỂM ĐỊNH AI (4 BƯỚC)</span>
+            </button>
+          </form>
+
+        </div>
+
+        <!-- Right Panel: Visual Scanner & 4-Step Diagnostic Live Log (Takes 7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Visual AI Canvas Scanner Box -->
+          <div class="bg-slate-900 rounded-2xl border border-slate-800 p-4 shadow-xl relative overflow-hidden">
+            
+            <!-- Canvas HUD Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="font-mono text-cyan-400 font-bold tracking-wide">HUD SCANNER: OPTICAL & BIOMETRIC CALIBRATION</span>
+              </div>
+              <span id="scanner-status-text" class="text-slate-400 font-mono text-[11px]">Sẵn sàng quét...</span>
+            </div>
+
+            <!-- Canvas Container -->
+            <div class="relative mt-3 rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center min-h-[340px] border border-slate-800/80">
+              <img id="scanner-preview-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop" alt="Catch Preview" class="w-full max-h-[360px] object-cover rounded-xl filter brightness-95">
+              
+              <!-- Scanning Laser Overlay -->
+              <div id="scanner-laser" class="hidden absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_#22d3ee] animate-laser"></div>
+              
+              <!-- SVG Bounding Box & Landmarks Overlay -->
+              <svg id="scanner-overlay-svg" class="absolute inset-0 w-full h-full pointer-events-none">
+                <!-- Injected dynamically by app.js -->
+              </svg>
+
+              <!-- Lens Distortion Alert Tag -->
+              <div id="lens-warning-badge" class="hidden absolute top-3 right-3 bg-red-950/90 text-red-300 border border-red-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xl animate-pulse">
+                <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400"></i>
+                <span>PHÁT HIỆN GIAN LẬN ZOOM 0.5x</span>
+              </div>
+            </div>
+
+            <!-- Biometric Scale Bar Under Photo -->
+            <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <span class="text-slate-400 text-[10px] block">TIÊU CỰ THỰC TẾ (EXIF)</span>
+                <span id="hud-focal-length" class="font-mono font-bold text-cyan-300">28.0 mm (Chuẩn 1x)</span>
+              </div>
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <span class="text-slate-400 text-[10px] block">ƯỚC TÍNH CHIỀU DÀI THỰC</span>
+                <span id="hud-est-length" class="font-mono font-bold text-emerald-300">68.0 cm</span>
+              </div>
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <span class="text-slate-400 text-[10px] block">KHỐI LƯỢNG SINH HỌC AI</span>
+                <span id="hud-est-weight" class="font-mono font-bold text-amber-300">6.0 kg</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 4-Step Verification Diagnostic Container -->
+          <div class="space-y-3" id="diagnostic-steps-container">
+            
+            <!-- Step 1 Card: Reverse Image Search -->
+            <div id="diag-step-1" class="step-card bg-slate-900 rounded-xl border border-slate-800 p-4 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="step-number w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs font-bold flex items-center justify-center">1</span>
+                  <div>
+                    <h4 class="text-sm font-bold text-slate-200">Bước 1: Quét Bản Quyền & Nguồn Ảnh Trên Mạng</h4>
+                    <p class="text-xs text-slate-400 step-subtitle">Chờ kích hoạt...</p>
+                  </div>
+                </div>
+                <div class="step-badge"></div>
+              </div>
+              <div class="step-details mt-2 text-xs text-slate-300 hidden pl-10 space-y-1"></div>
+            </div>
+
+            <!-- Step 2 Card: Lens Distortion & Biometrics -->
+            <div id="diag-step-2" class="step-card bg-slate-900 rounded-xl border border-slate-800 p-4 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="step-number w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs font-bold flex items-center justify-center">2</span>
+                  <div>
+                    <h4 class="text-sm font-bold text-slate-200">Bước 2: Phân Tích Góc Chụp (Zoom 0.5x) & Đo Đạc Cá</h4>
+                    <p class="text-xs text-slate-400 step-subtitle">Chờ kích hoạt...</p>
+                  </div>
+                </div>
+                <div class="step-badge"></div>
+              </div>
+              <div class="step-details mt-2 text-xs text-slate-300 hidden pl-10 space-y-1"></div>
+            </div>
+
+            <!-- Step 3 Card: Cross Reference -->
+            <div id="diag-step-3" class="step-card bg-slate-900 rounded-xl border border-slate-800 p-4 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="step-number w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs font-bold flex items-center justify-center">3</span>
+                  <div>
+                    <h4 class="text-sm font-bold text-slate-200">Bước 3: Đối Chiếu Số Liệu Khai Báo vs AI</h4>
+                    <p class="text-xs text-slate-400 step-subtitle">Chờ kích hoạt...</p>
+                  </div>
+                </div>
+                <div class="step-badge"></div>
+              </div>
+              <div class="step-details mt-2 text-xs text-slate-300 hidden pl-10 space-y-1"></div>
+            </div>
+
+            <!-- Step 4 Card: Final Decision & Tolerance Check -->
+            <div id="diag-step-4" class="step-card bg-slate-900 rounded-xl border border-slate-800 p-4 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="step-number w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs font-bold flex items-center justify-center">4</span>
+                  <div>
+                    <h4 class="text-sm font-bold text-slate-200">Bước 4: Đánh Giá Chênh Lệch & Quyết Định Phê Duyệt</h4>
+                    <p class="text-xs text-slate-400 step-subtitle">Chờ kích hoạt...</p>
+                  </div>
+                </div>
+                <div class="step-badge"></div>
+              </div>
+              <div class="step-details mt-2 text-xs text-slate-300 hidden pl-10 space-y-2"></div>
+            </div>
+
+          </div>
+
+          <!-- Official Approval Actions Container -->
+          <div id="action-approved-box" class="hidden bg-gradient-to-r from-emerald-950/70 via-slate-900 to-emerald-950/70 p-5 rounded-2xl border border-emerald-600/60 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-check" class="w-5 h-5 text-emerald-400"></i>
+                <h3 class="text-base font-bold text-emerald-300">Đủ Điều Kiện Ghi Danh Bảng Kỷ Lục</h3>
+              </div>
+              <p class="text-xs text-slate-300 mt-1" id="official-record-text">Khối lượng chính thức được cấp chứng nhận: 6.2 kg</p>
+            </div>
+            <button onclick="commitCatchToLeaderboard()" id="btn-commit-catch" class="w-full sm:w-auto px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              <span>Lưu Vào Bảng Kỷ Lục</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="fish" class="w-4 h-4 text-cyan-400"></i>
+        <span class="font-bold text-slate-300">FishMap VN</span>
+        <span>— Dự án bản đồ & kiểm định câu cá thể thao Việt Nam</span>
+      </div>
+      <p class="text-[11px] text-slate-500">Tích hợp mô hình sinh trắc học cá FishBase Allometric & Công nghệ phát hiện quang sai ống kính 0.5x</p>
+    </div>
+  </footer>
+
+  <!-- App Script with Cache Busting -->
+  <script src="app.js?v=20261119_gmaps_locations_v17"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

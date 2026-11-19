@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#001a33"/>
+      <stop offset="100%" stop-color="#003366"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c3a5a"/>
+      <stop offset="50%" stop-color="#4682b4"/>
+      <stop offset="100%" stop-color="#c0c0c0"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="40%" stop-color="#ff8c00"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="220" rx="16" fill="url(#bg)"/>
+  <!-- Water caustics -->
+  <g opacity="0.06" fill="none" stroke="#fff" stroke-width="0.5">
+    <path d="M0,30 Q50,20 100,35 Q150,50 200,30 Q250,10 300,35 Q350,55 400,30"/>
+    <path d="M0,170 Q40,160 80,175 Q130,185 180,170 Q230,155 280,172 Q340,185 400,170"/>
+  </g>
+  <!-- Bubbles -->
+  <circle cx="42" cy="32" r="3" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  <circle cx="355" cy="40" r="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <circle cx="50" cy="175" r="2.5" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+  <!-- Fish body shadow -->
+  <ellipse cx="195" cy="114" rx="138" ry="42" fill="#000" opacity="0.12"/>
+  <!-- Dorsal fin -->
+  <path d="M125,65 L135,42 L150,40 L165,38 L178,45 L185,55 L188,65 L200,55 L220,48 L245,52 L260,58 L268,65" fill="#ffd700" stroke="#ffa500" stroke-width="0.7" opacity="0.85"/>
+  <!-- Main body -->
+  <ellipse cx="192" cy="106" rx="138" ry="42" fill="url(#body)" stroke="#ffa500" stroke-width="0.5"/>
+  
+  <g opacity="0.12" fill="none" stroke="#ffa500" stroke-width="0.35">
+    <path d="M92,84 Q104,79 110,87 Q104,95 92,90Z"/>
+    <path d="M117,84 Q129,79 135,87 Q129,95 117,90Z"/>
+    <path d="M142,84 Q154,79 160,87 Q154,95 142,90Z"/>
+    <path d="M167,84 Q179,79 185,87 Q179,95 167,90Z"/>
+    <path d="M192,84 Q204,79 210,87 Q204,95 192,90Z"/>
+    <path d="M217,84 Q229,79 235,87 Q229,95 217,90Z"/>
+    <path d="M242,84 Q254,79 260,87 Q254,95 242,90Z"/>
+    <path d="M267,84 Q279,79 285,87 Q279,95 267,90Z"/>
+    <path d="M92,96 Q104,91 110,99 Q104,107 92,102Z"/>
+    <path d="M117,96 Q129,91 135,99 Q129,107 117,102Z"/>
+    <path d="M142,96 Q154,91 160,99 Q154,107 142,102Z"/>
+    <path d="M167,96 Q179,91 185,99 Q179,107 167,102Z"/>
+    <path d="M192,96 Q204,91 210,99 Q204,107 192,102Z"/>
+    <path d="M217,96 Q229,91 235,99 Q229,107 217,102Z"/>
+    <path d="M242,96 Q254,91 260,99 Q254,107 242,102Z"/>
+    <path d="M267,96 Q279,91 285,99 Q279,107 267,102Z"/>
+    <path d="M92,108 Q104,103 110,111 Q104,119 92,114Z"/>
+    <path d="M117,108 Q129,103 135,111 Q129,119 117,114Z"/>
+    <path d="M142,108 Q154,103 160,111 Q154,119 142,114Z"/>
+    <path d="M167,108 Q179,103 185,111 Q179,119 167,114Z"/>
+    <path d="M192,108 Q204,103 210,111 Q204,119 192,114Z"/>
+    <path d="M217,108 Q229,103 235,111 Q229,119 217,114Z"/>
+    <path d="M242,108 Q254,103 260,111 Q254,119 242,114Z"/>
+    <path d="M267,108 Q279,103 285,111 Q279,119 267,114Z"/>
+    <path d="M92,120 Q104,115 110,123 Q104,131 92,126Z"/>
+    <path d="M117,120 Q129,115 135,123 Q129,131 117,126Z"/>
+    <path d="M142,120 Q154,115 160,123 Q154,131 142,126Z"/>
+    <path d="M167,120 Q179,115 185,123 Q179,131 167,126Z"/>
+    <path d="M192,120 Q204,115 210,123 Q204,131 192,126Z"/>
+    <path d="M217,120 Q229,115 235,123 Q229,131 217,126Z"/>
+    <path d="M242,120 Q254,115 260,123 Q254,131 242,126Z"/>
+    <path d="M267,120 Q279,115 285,123 Q279,131 267,126Z"/>
+  </g>
+  <!-- Lateral line -->
+  <path d="M72,104 C142,98 252,100 312,106" fill="none" stroke="#ffa500" stroke-width="0.8" opacity="0.35" stroke-dasharray="3,2"/>
+  <!-- Tail / Caudal fin -->
+  <path d="M320,82 L355,52 L362,75 L348,106 L362,138 L355,158 L320,130" fill="#ffd700" stroke="#ffa500" stroke-width="0.7"/>
+  
+  <!-- Yellow finlets -->
+  <g fill="#ffd700" opacity="0.9">
+    <polygon points="275,62 282,52 288,60"/>
+    <polygon points="290,65 296,55 302,63"/>
+    <polygon points="305,70 310,60 316,68"/>
+    <polygon points="275,148 282,158 288,150"/>
+    <polygon points="290,145 296,155 302,147"/>
+    <polygon points="305,140 310,150 316,142"/>
+  </g>
+  <!-- Anal fin -->
+  <path d="M228,152 L245,170 L265,168 L278,155" fill="#ffd700" stroke="#ffa500" stroke-width="0.6" opacity="0.8"/>
+  <!-- Pelvic fin -->
+  <path d="M162,146 L172,168 L189,162 L185,144" fill="#ffd700" stroke="#ffa500" stroke-width="0.5" opacity="0.75"/>
+  <!-- Pectoral fin -->
+  <path d="M97,114 L77,138 L94,144 L107,128" fill="#ffd700" stroke="#ffa500" stroke-width="0.5" opacity="0.75"/>
+  <!-- Gill cover -->
+  <path d="M93,84 Q99,106 93,128" fill="none" stroke="#ffa500" stroke-width="1.1" opacity="0.4"/>
+  <!-- Barbels (if any) -->
+  
+  <!-- Head contour -->
+  <path d="M65,94 Q52,106 65,118" fill="none" stroke="#ffa500" stroke-width="1"/>
+  <!-- Mouth -->
+  <path d="M63,104 Q55,106 63,110" fill="none" stroke="#ffa500" stroke-width="1.1"/>
+  <!-- Eye -->
+  <circle cx="79" cy="96" r="8.5" fill="url(#eye)" filter="url(#glow)"/>
+  <circle cx="77" cy="94" r="2.8" fill="#111"/>
+  <circle cx="76" cy="93" r="1.1" fill="rgba(255,255,255,0.75)"/>
+  <!-- Species Label -->
+  <rect x="50" y="194" width="300" height="20" rx="10" fill="rgba(0,0,0,0.5)"/>
+  <text x="200" y="208" text-anchor="middle" fill="#38bdf8" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" letter-spacing="0.4">CÁ NGỪ ĐẠI DƯƠNG • Thunnus albacares</text>
+</svg>

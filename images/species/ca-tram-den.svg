@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c2d48"/>
+      <stop offset="100%" stop-color="#145da0"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2d3436"/>
+      <stop offset="50%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#3d3d3d"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="40%" stop-color="#ff8c00"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="220" rx="16" fill="url(#bg)"/>
+  <!-- Water caustics -->
+  <g opacity="0.06" fill="none" stroke="#fff" stroke-width="0.5">
+    <path d="M0,30 Q50,20 100,35 Q150,50 200,30 Q250,10 300,35 Q350,55 400,30"/>
+    <path d="M0,170 Q40,160 80,175 Q130,185 180,170 Q230,155 280,172 Q340,185 400,170"/>
+  </g>
+  <!-- Bubbles -->
+  <circle cx="42" cy="32" r="3" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  <circle cx="355" cy="40" r="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <circle cx="50" cy="175" r="2.5" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+  <!-- Fish body shadow -->
+  <ellipse cx="198" cy="118" rx="130" ry="50" fill="#000" opacity="0.12"/>
+  <!-- Dorsal fin -->
+  <path d="M115,64 L130,40 L150,44 L170,36 L190,42 L210,38 L230,42 L248,50 L258,64" fill="#1a1a2e" stroke="#555" stroke-width="0.7" opacity="0.85"/>
+  <!-- Main body -->
+  <ellipse cx="195" cy="110" rx="130" ry="50" fill="url(#body)" stroke="#555" stroke-width="0.5"/>
+  
+  <g opacity="0.12" fill="none" stroke="#555" stroke-width="0.35">
+    <path d="M95,88 Q107,83 113,91 Q107,99 95,94Z"/>
+    <path d="M120,88 Q132,83 138,91 Q132,99 120,94Z"/>
+    <path d="M145,88 Q157,83 163,91 Q157,99 145,94Z"/>
+    <path d="M170,88 Q182,83 188,91 Q182,99 170,94Z"/>
+    <path d="M195,88 Q207,83 213,91 Q207,99 195,94Z"/>
+    <path d="M220,88 Q232,83 238,91 Q232,99 220,94Z"/>
+    <path d="M245,88 Q257,83 263,91 Q257,99 245,94Z"/>
+    <path d="M270,88 Q282,83 288,91 Q282,99 270,94Z"/>
+    <path d="M95,100 Q107,95 113,103 Q107,111 95,106Z"/>
+    <path d="M120,100 Q132,95 138,103 Q132,111 120,106Z"/>
+    <path d="M145,100 Q157,95 163,103 Q157,111 145,106Z"/>
+    <path d="M170,100 Q182,95 188,103 Q182,111 170,106Z"/>
+    <path d="M195,100 Q207,95 213,103 Q207,111 195,106Z"/>
+    <path d="M220,100 Q232,95 238,103 Q232,111 220,106Z"/>
+    <path d="M245,100 Q257,95 263,103 Q257,111 245,106Z"/>
+    <path d="M270,100 Q282,95 288,103 Q282,111 270,106Z"/>
+    <path d="M95,112 Q107,107 113,115 Q107,123 95,118Z"/>
+    <path d="M120,112 Q132,107 138,115 Q132,123 120,118Z"/>
+    <path d="M145,112 Q157,107 163,115 Q157,123 145,118Z"/>
+    <path d="M170,112 Q182,107 188,115 Q182,123 170,118Z"/>
+    <path d="M195,112 Q207,107 213,115 Q207,123 195,118Z"/>
+    <path d="M220,112 Q232,107 238,115 Q232,123 220,118Z"/>
+    <path d="M245,112 Q257,107 263,115 Q257,123 245,118Z"/>
+    <path d="M270,112 Q282,107 288,115 Q282,123 270,118Z"/>
+    <path d="M95,124 Q107,119 113,127 Q107,135 95,130Z"/>
+    <path d="M120,124 Q132,119 138,127 Q132,135 120,130Z"/>
+    <path d="M145,124 Q157,119 163,127 Q157,135 145,130Z"/>
+    <path d="M170,124 Q182,119 188,127 Q182,135 170,130Z"/>
+    <path d="M195,124 Q207,119 213,127 Q207,135 195,130Z"/>
+    <path d="M220,124 Q232,119 238,127 Q232,135 220,130Z"/>
+    <path d="M245,124 Q257,119 263,127 Q257,135 245,130Z"/>
+    <path d="M270,124 Q282,119 288,127 Q282,135 270,130Z"/>
+  </g>
+  <!-- Lateral line -->
+  <path d="M75,108 C145,102 255,104 315,110" fill="none" stroke="#555" stroke-width="0.8" opacity="0.35" stroke-dasharray="3,2"/>
+  <!-- Tail / Caudal fin -->
+  <path d="M310,85 L352,55 L362,78 L352,110 L362,135 L352,150 L310,130" fill="#1a1a2e" stroke="#555" stroke-width="0.7"/>
+  
+  <!-- Anal fin -->
+  <path d="M228,152 L245,170 L265,168 L278,155" fill="#1a1a2e" stroke="#555" stroke-width="0.6" opacity="0.8"/>
+  <!-- Pelvic fin -->
+  <path d="M165,150 L175,172 L192,166 L188,148" fill="#1a1a2e" stroke="#555" stroke-width="0.5" opacity="0.75"/>
+  <!-- Pectoral fin -->
+  <path d="M100,118 L80,142 L97,148 L110,132" fill="#1a1a2e" stroke="#555" stroke-width="0.5" opacity="0.75"/>
+  <!-- Gill cover -->
+  <path d="M96,88 Q102,110 96,132" fill="none" stroke="#555" stroke-width="1.1" opacity="0.4"/>
+  <!-- Barbels (if any) -->
+  
+  <!-- Head contour -->
+  <path d="M68,98 Q55,110 68,122" fill="none" stroke="#555" stroke-width="1"/>
+  <!-- Mouth -->
+  <path d="M66,108 Q58,110 66,114" fill="none" stroke="#555" stroke-width="1.1"/>
+  <!-- Eye -->
+  <circle cx="82" cy="100" r="8.5" fill="url(#eye)" filter="url(#glow)"/>
+  <circle cx="80" cy="98" r="2.8" fill="#111"/>
+  <circle cx="79" cy="97" r="1.1" fill="rgba(255,255,255,0.75)"/>
+  <!-- Species Label -->
+  <rect x="50" y="194" width="300" height="20" rx="10" fill="rgba(0,0,0,0.5)"/>
+  <text x="200" y="208" text-anchor="middle" fill="#38bdf8" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" letter-spacing="0.4">CÁ TRẮM ĐEN • Mylopharyngodon piceus</text>
+</svg>
