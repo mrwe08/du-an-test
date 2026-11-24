@@ -226,6 +226,92 @@ class FishAppHandler(http.server.SimpleHTTPRequestHandler):
                 })
             finally:
                 conn.close()
+
+        elif path == "/api/chat":
+            # FishBot AI Chat endpoint (supports server-side or passed key)
+            messages = payload.get("messages", [])
+            user_key = (payload.get("api_key") or os.environ.get("GEMINI_API_KEY") or os.environ.get("OPENAI_API_KEY") or "").strip()
+            provider = payload.get("provider", "gemini")
+            model = payload.get("model", "gemini-3.8-flash")
+            system_prompt = payload.get("system_prompt", "Bạn là FishBot AI - Cố vấn câu cá của FishMap VN.")
+
+            if not user_key:
+                self.send_json_response({
+                    "success": False,
+                    "error": "Chưa cấu hình API Key. Vui lòng nhập API Key trong phần Cài đặt chat ⚙️."
+                }, status=400)
+                return
+
+            try:
+                import urllib.request
+                import urllib.error
+                if provider == "openai" or user_key.startswith("sk-"):
+                    target_model = model if "gpt" in model else "gpt-4o-mini"
+                    req_data = json.dumps({
+                        "model": target_model,
+                        "messages": [{"role": "system", "content": system_prompt}] + messages[-8:],
+                        "temperature": 0.7
+                    }).encode("utf-8")
+                    req = urllib.request.Request(
+                        "https://api.openai.com/v1/chat/completions",
+                        data=req_data,
+                        headers={
+                            "Content-Type": "application/json",
+                            "Authorization": f"Bearer {user_key}"
+                        }
+                    )
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        resp_data = json.loads(resp.read().decode("utf-8"))
+                        reply = resp_data["choices"][0]["message"]["content"]
+                        self.send_json_response({"success": True, "reply": reply})
+                else:
+                    # Clean model name and map deprecated models to 3.8
+                    clean_model = (model or "gemini-3.8-flash").replace("models/", "").strip()
+                    if not clean_model or (clean_model.startswith("gemini-") and clean_model != "gemini-3.8-flash"):
+                        clean_model = "gemini-3.8-flash"
+
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model}:generateContent?key={urllib.parse.quote(user_key)}"
+                    
+                    contents = []
+                    for m in messages[-8:]:
+                        role = "user" if m.get("role") == "user" else "model"
+                        contents.append({"role": role, "parts": [{"text": m.get("content", "")}]})
+                    
+                    req_data = json.dumps({
+                        "contents": contents,
+                        "systemInstruction": {"parts": [{"text": system_prompt}]},
+                        "generationConfig": {"temperature": 0.7, "maxOutputTokens": 1200}
+                    }).encode("utf-8")
+                    
+                    req = urllib.request.Request(
+                        url,
+                        data=req_data,
+                        headers={"Content-Type": "application/json"}
+                    )
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        resp_data = json.loads(resp.read().decode("utf-8"))
+                        reply = resp_data["candidates"][0]["content"]["parts"][0]["text"]
+                        self.send_json_response({"success": True, "reply": reply})
+            except urllib.error.HTTPError as e:
+                err_body = ""
+                try:
+                    err_body = e.read().decode("utf-8")
+                    err_json = json.loads(err_body)
+                    error_obj = err_json.get("error", {})
+                    detail_msg = error_obj.get("message") or err_body
+                    err_status = error_obj.get("status", "")
+                    detail_msg = f"[{e.code} {err_status}] {detail_msg}"
+                except Exception:
+                    detail_msg = err_body or str(e)
+                self.send_json_response({
+                    "success": False,
+                    "error": detail_msg
+                }, status=e.code)
+            except Exception as e:
+                self.send_json_response({
+                    "success": False,
+                    "error": f"Lỗi gọi AI API: {str(e)}"
+                }, status=500)
         else:
             self.send_json_response({"error": "Unknown POST route"}, status=404)
 
