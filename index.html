@@ -50,7 +50,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-  <link rel="stylesheet" href="styles.css?v=20261123_ai_chat_v23">
+  <link rel="stylesheet" href="styles.css?v=20261124_recipes_v2">
 </head>
 <body class="bg-slate-950 text-slate-100 font-['Plus_Jakarta_Sans'] min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-white">
 
@@ -83,16 +83,16 @@
           <span>Thời Tiết Cắn Câu</span>
         </button>
         <button onclick="switchTab('species')" id="nav-btn-species" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all">
+          <i data-lucide="fish" class="w-4 h-4 text-emerald-400"></i>
+          <span>Loài Cá & Mồi</span>
+        </button>
+        <button onclick="switchTab('recipes')" id="nav-btn-recipes" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all border border-amber-800/40 bg-amber-950/20 hover:bg-amber-950/50">
           <i data-lucide="utensils" class="w-4 h-4 text-amber-400"></i>
-          <span>Cá, Mồi & Bếp Cần Thủ</span>
+          <span class="text-amber-300 font-bold">Chế Biến Món Ngon</span>
         </button>
         <button onclick="switchTab('leaderboard')" id="nav-btn-leaderboard" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all">
           <i data-lucide="trophy" class="w-4 h-4"></i>
           <span>Bảng Kỷ Lục</span>
-        </button>
-        <button onclick="toggleAiChat()" id="nav-btn-chat" class="nav-tab flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-all border border-cyan-800/40 bg-cyan-950/20 hover:bg-cyan-950/50">
-          <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
-          <span>Trợ Lý AI</span>
         </button>
       </nav>
 
@@ -108,12 +108,12 @@
 
   <!-- Mobile Navigation Bar -->
   <div class="md:hidden flex overflow-x-auto gap-2 p-2 bg-slate-900 border-b border-slate-800 text-xs font-semibold">
-    <button onclick="switchTab('map')" class="mobile-tab px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-400 whitespace-nowrap">📍 Bản Đồ</button>
-    <button onclick="switchTab('weather')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🌦️ Thời Tiết</button>
-    <button onclick="switchTab('species')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🍲 Bếp & Món Ngon</button>
-    <button onclick="switchTab('leaderboard')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🏆 Kỷ Lục</button>
-    <button onclick="toggleAiChat()" class="mobile-tab px-3 py-1.5 rounded-lg text-cyan-300 border border-cyan-800 bg-cyan-950/60 whitespace-nowrap">🤖 Trợ Lý AI</button>
-    <button onclick="switchTab('verifier')" class="mobile-tab px-3 py-1.5 rounded-lg bg-cyan-600 text-white whitespace-nowrap">📸 Kiểm Định AI</button>
+    <button onclick="switchTab('map')" id="mobile-tab-map" class="mobile-tab px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-400 whitespace-nowrap">📍 Bản Đồ</button>
+    <button onclick="switchTab('weather')" id="mobile-tab-weather" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🌦️ Thời Tiết</button>
+    <button onclick="switchTab('species')" id="mobile-tab-species" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🐟 Loài Cá</button>
+    <button onclick="switchTab('recipes')" id="mobile-tab-recipes" class="mobile-tab px-3 py-1.5 rounded-lg text-amber-300 border border-amber-800/80 bg-amber-950/60 whitespace-nowrap font-bold">🍳 Chế Biến</button>
+    <button onclick="switchTab('leaderboard')" id="mobile-tab-leaderboard" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">🏆 Kỷ Lục</button>
+    <button onclick="switchTab('verifier')" id="mobile-tab-verifier" class="mobile-tab px-3 py-1.5 rounded-lg bg-cyan-600 text-white whitespace-nowrap">📸 Kiểm Định AI</button>
   </div>
 
   <!-- Main Content Container -->
@@ -1900,7 +1900,93 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VIEW 4: BẢNG XẾP HẠNG KỶ LỤC CÁ TO NHẤT -->
+    <!-- VIEW: BẾP CẦN THỦ - CHẾ BIẾN MÓN NGON -->
+    <!-- ========================================== -->
+    <section id="view-recipes" class="hidden space-y-6">
+      
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-950 via-slate-900 to-slate-950 border border-amber-800/60 p-6 md:p-8 shadow-2xl">
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold">
+              <i data-lucide="utensils" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Bếp Cần Thủ • Ẩm Thực Cá Toàn Quốc</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex flex-wrap items-center gap-2.5">
+              <span>Cẩm Nang Chế Biến Món Ngon Từ Cá</span>
+              <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-full font-bold">Có Link Video & Công Thức</span>
+            </h1>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Tổng hợp bí quyết chế biến gia truyền cho <strong>11 loài cá</strong> nước ngọt & biển. Đầy đủ nguyên liệu, bí quyết khử tanh, kỹ thuật nướng than / om dưa / kho niêu và <strong>đính kèm link xem video YouTube & công thức nấu ăn chi tiết</strong>.
+            </p>
+          </div>
+
+          <!-- Quick Stats Pill -->
+          <div class="grid grid-cols-3 gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
+            <div class="bg-slate-900/90 border border-amber-800/40 p-3 sm:p-3.5 rounded-2xl text-center shadow-lg">
+              <span class="block text-2xl font-black text-amber-400" id="stat-total-recipes">29</span>
+              <span class="text-[11px] text-slate-400 font-medium">Món đặc sản</span>
+            </div>
+            <div class="bg-slate-900/90 border border-amber-800/40 p-3 sm:p-3.5 rounded-2xl text-center shadow-lg">
+              <span class="block text-2xl font-black text-cyan-400">11</span>
+              <span class="text-[11px] text-slate-400 font-medium">Loài cá</span>
+            </div>
+            <div class="bg-slate-900/90 border border-amber-800/40 p-3 sm:p-3.5 rounded-2xl text-center shadow-lg">
+              <span class="block text-2xl font-black text-emerald-400">100%</span>
+              <span class="text-[11px] text-slate-400 font-medium">Có Video Link</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="bg-slate-900/95 p-4 sm:p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+        <!-- Search and Quick Counts -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div class="relative flex-1 max-w-md">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+            <input 
+              type="text" 
+              id="recipe-search-input" 
+              placeholder="Tìm kiếm món ăn, nguyên liệu (om dưa, mẻ, riềng, nướng...)" 
+              class="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-amber-500"
+              oninput="filterRecipes()"
+            />
+          </div>
+
+          <div class="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-400">
+            <span>Hiển thị: <strong id="recipe-count-display" class="text-amber-300 font-bold">29</strong> món ăn</span>
+            <button onclick="resetRecipeFilters()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-cyan-400 hover:text-cyan-300 transition-all font-semibold">
+              ↺ Đặt lại bộ lọc
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter by Fish Species -->
+        <div class="space-y-1.5">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Chọn loài cá:</span>
+          <div id="recipe-fish-filter-chips" class="flex flex-wrap gap-1.5">
+            <!-- Dynamic fish chips -->
+          </div>
+        </div>
+
+        <!-- Filter by Cooking Method -->
+        <div class="space-y-1.5 pt-2 border-t border-slate-800/60">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Phương pháp nấu:</span>
+          <div id="recipe-method-filter-chips" class="flex flex-wrap gap-1.5">
+            <!-- Method chips -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipes Catalog Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recipes-catalog-grid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: BẢNG XẾP HẠNG KỶ LỤC CÁ TO NHẤT -->
     <!-- ========================================== -->
     <section id="view-leaderboard" class="hidden space-y-6">
       
@@ -2320,210 +2406,8 @@
     </div>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- FLOATING AI CHAT WIDGET & TRIGGER BUTTON -->
-  <!-- ========================================== -->
-  <div id="ai-chat-toggle-container" class="fixed bottom-6 right-6 z-40">
-    <button onclick="toggleAiChat()" id="btn-toggle-ai-chat" class="group relative flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-full shadow-2xl shadow-cyan-500/40 border border-cyan-300/30 transition-all duration-300 transform hover:scale-105 active:scale-95">
-      <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-200 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-      </span>
-      <i data-lucide="bot" class="w-5 h-5 text-white"></i>
-      <span class="text-xs font-extrabold tracking-wide hidden sm:inline">Hỏi Trợ Lý AI</span>
-    </button>
-  </div>
-
-  <!-- AI Chat Window (Floating Drawer) -->
-  <div id="ai-chat-window" class="hidden fixed bottom-6 right-4 sm:right-6 z-50 w-[420px] max-w-[calc(100vw-32px)] h-[620px] max-h-[calc(100vh-80px)] bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 font-['Plus_Jakarta_Sans']">
-    
-    <!-- Chat Header -->
-    <div class="p-3.5 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between shrink-0">
-      <div class="flex items-center gap-2.5">
-        <div class="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
-          <i data-lucide="bot" class="w-5 h-5"></i>
-          <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-slate-900 rounded-full"></span>
-        </div>
-        <div>
-          <div class="flex items-center gap-1.5">
-            <h3 class="text-sm font-bold text-white">FishBot AI</h3>
-            <span id="ai-status-pill" class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">Sẵn sàng</span>
-          </div>
-          <p class="text-[10px] text-slate-400">Trợ lý câu cá, bài mồi & điểm câu VN</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-1">
-        <!-- Settings Button -->
-        <button onclick="toggleApiKeyModal()" title="Cài đặt API Key (Gemini / OpenAI)" class="p-2 text-slate-400 hover:text-cyan-300 hover:bg-slate-800 rounded-lg transition-all relative">
-          <i data-lucide="settings" class="w-4 h-4"></i>
-          <span id="api-key-active-dot" class="hidden absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-400"></span>
-        </button>
-        <!-- Clear Chat Button -->
-        <button onclick="clearAiChat()" title="Xóa đoạn chat" class="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition-all">
-          <i data-lucide="trash-2" class="w-4 h-4"></i>
-        </button>
-        <!-- Close Button -->
-        <button onclick="toggleAiChat()" title="Thu nhỏ" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- API Key Settings Panel (Collapsible) -->
-    <div id="ai-chat-settings-panel" class="hidden bg-slate-950 border-b border-slate-800 p-4 space-y-3 shrink-0 text-xs">
-      <div class="flex items-center justify-between">
-        <span class="font-bold text-cyan-300 flex items-center gap-1.5">
-          <i data-lucide="key" class="w-3.5 h-3.5"></i>
-          <span>Cài Đặt API Key AI</span>
-        </span>
-        <button onclick="toggleApiKeyModal()" class="text-slate-400 hover:text-white text-xs">✕ Đóng</button>
-      </div>
-      
-      <p class="text-[11px] text-slate-400 leading-relaxed">
-        Nhập <strong>Google Gemini API Key</strong> (Miễn phí 100%) để AI tư vấn thông minh, phân tích thời tiết và hướng dẫn bài mồi theo thời gian thực!
-      </p>
-
-      <div class="space-y-2">
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 mb-1">Loại API Provider</label>
-          <select id="ai-provider-select" onchange="handleProviderChange()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 outline-none focus:border-cyan-500">
-            <option value="gemini">Google Gemini API (Khuyên dùng - Miễn phí)</option>
-            <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 mb-1">API Key</label>
-          <div class="relative">
-            <input type="password" id="ai-api-key-input" placeholder="Dán Gemini API Key (AIzaSy...)" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-2.5 pr-8 py-1.5 text-xs text-slate-100 outline-none focus:border-cyan-500 font-mono" />
-            <button type="button" onclick="toggleApiKeyVisibility()" class="absolute right-2 top-2 text-slate-400 hover:text-slate-200">
-              <i data-lucide="eye" id="eye-icon" class="w-3.5 h-3.5"></i>
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mô hình AI (Model)</label>
-          <select id="ai-model-select" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 outline-none focus:border-cyan-500">
-            <option value="gemini-3.8-flash" selected>gemini-3.8-flash (Khuyên dùng - Chuẩn mới nhất & Siêu tốc)</option>
-            <option value="gpt-4o-mini">gpt-4o-mini (Nếu dùng OpenAI)</option>
-            <option value="gpt-4o">gpt-4o (OpenAI Mạnh mẽ)</option>
-          </select>
-        </div>
-
-        <div class="bg-cyan-950/40 border border-cyan-800/40 p-2.5 rounded-lg text-[11px] text-cyan-200 space-y-1">
-          <div class="font-bold flex items-center gap-1 text-cyan-300">
-            <i data-lucide="sparkles" class="w-3 h-3"></i>
-            <span>Chưa có Gemini API Key?</span>
-          </div>
-          <p class="text-slate-300">
-            Nhận mã khóa miễn phí chỉ trong 30 giây (không cần thẻ Visa):
-          </p>
-          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 underline font-bold">
-            <span>👉 Mở Google AI Studio để lấy key</span>
-            <i data-lucide="external-link" class="w-3 h-3"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-2 pt-1">
-        <button type="button" onclick="testApiKeyConnection()" class="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg font-semibold text-xs border border-cyan-800/60 hover:border-cyan-500 transition-all flex items-center gap-1 shadow-sm" title="Kiểm tra kết nối tới AI API">
-          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>Kiểm Tra</span>
-        </button>
-        <button type="button" onclick="saveApiKeySettings()" class="flex-1 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg font-bold text-xs shadow-md transition-all">
-          Lưu Cài Đặt
-        </button>
-        <button type="button" onclick="removeApiKeySettings()" class="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 rounded-lg font-semibold text-xs border border-slate-700 transition-all" title="Xóa API Key">
-          Xóa
-        </button>
-      </div>
-
-      <div id="ai-key-status-msg" class="text-[10px] text-center pt-1 text-slate-400">
-        <!-- Status message -->
-      </div>
-    </div>
-
-    <!-- Chat Messages Body (Scrollable) -->
-    <div id="ai-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-      <!-- Welcome message -->
-      <div class="flex items-start gap-2.5">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center text-white shrink-0 shadow">
-          <i data-lucide="bot" class="w-4 h-4"></i>
-        </div>
-        <div class="chat-bubble-ai p-3 space-y-2 max-w-[85%] text-xs">
-          <p class="font-bold text-cyan-300">Chào cần thủ! Tôi là FishBot AI 🐟</p>
-          <p class="text-slate-300 leading-relaxed">
-            Tôi có thể tư vấn bài mồi câu chuẩn cho 11 loài cá, phân tích khí áp cắn câu hôm nay, tìm hồ câu phù hợp trong 30 điểm câu toàn quốc hoặc công thức chế biến món ngon từ cá bạn câu được!
-          </p>
-          <div class="pt-1 border-t border-slate-800 text-[10px] text-slate-400 flex items-center gap-1">
-            <i data-lucide="info" class="w-3 h-3 text-cyan-400"></i>
-            <span>Bạn có thể bấm vào ⚙️ góc trên để gắn Gemini API Key của mình.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Suggestion Chips -->
-      <div id="ai-quick-prompts" class="pt-2 flex flex-col gap-1.5">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gợi ý câu hỏi nhanh:</span>
-        <div class="flex flex-wrap gap-1.5">
-          <button onclick="sendQuickPrompt('Bài mồi câu trắm đen hồ tự nhiên như thế nào chuẩn nhất?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            🌾 Mồi câu trắm đen hồ tự nhiên?
-          </button>
-          <button onclick="sendQuickPrompt('Khí áp hôm nay 1012 hPa thì cá cắn câu mạnh không?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            🌦️ Khí áp 1012 hPa cá ăn mạnh không?
-          </button>
-          <button onclick="sendQuickPrompt('Gợi ý điểm câu cá chép khủng gần khu vực Hà Nội?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            📍 Điểm câu chép khủng ở Hà Nội?
-          </button>
-          <button onclick="sendQuickPrompt('Cá lăng câu được nấu món gì ngon và chuẩn vị nhất?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            🍲 Cá lăng làm món gì ngon nhất?
-          </button>
-          <button onclick="sendQuickPrompt('Kỹ thuật lure cá lóc và mồi giả nhái hơi chuẩn nhất?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            🐟 Kỹ thuật lure cá quả / lóc?
-          </button>
-          <button onclick="sendQuickPrompt('Quần đảo Hoàng Sa và Trường Sa của Việt Nam có những loài thủy hải sản nào nổi bật?')" class="px-2.5 py-1 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-[11px] text-slate-300 hover:text-cyan-300 transition-all text-left">
-            🇻🇳 Ngư trường Hoàng Sa & Trường Sa?
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Typing Indicator (Hidden by default) -->
-    <div id="ai-typing-indicator" class="hidden px-4 py-2 bg-slate-950/60 border-t border-slate-800/60 flex items-center gap-2 text-xs text-cyan-400 shrink-0">
-      <div class="flex items-center gap-1 px-2 py-1 bg-slate-900 rounded-lg border border-slate-800">
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-      </div>
-      <span class="text-[11px] text-slate-400 italic">FishBot AI đang suy nghĩ...</span>
-    </div>
-
-    <!-- Chat Input Area -->
-    <div class="p-3 bg-slate-950 border-t border-slate-800 shrink-0">
-      <form id="ai-chat-form" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
-        <input 
-          type="text" 
-          id="ai-chat-input" 
-          placeholder="Hỏi về mồi, hồ câu, khí áp, món ăn..." 
-          class="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder:text-slate-500 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50"
-          autocomplete="off"
-        />
-        <button 
-          type="submit" 
-          id="ai-chat-send-btn"
-          class="p-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-md transition-all shrink-0 disabled:opacity-50"
-        >
-          <i data-lucide="send" class="w-4 h-4"></i>
-        </button>
-      </form>
-    </div>
-
-  </div>
-
   <!-- App Script with Cache Busting -->
-  <script src="app.js?v=20261123_ai_chat_v23"></script>
+  <script src="app.js?v=20261124_recipes_v2"></script>
   <script>
     lucide.createIcons();
   </script>

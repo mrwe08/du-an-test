@@ -1447,7 +1447,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   selectScenario('case_carp_authentic');
   loadWeatherDashboard();
   loadLeaderboard();
-  initAiChat();
+  initRecipesView();
   if (window.lucide) {
     lucide.createIcons();
   }
@@ -1458,7 +1458,7 @@ function switchTab(tabName) {
   state.activeTab = tabName;
 
   // Toggle views
-  const views = ['map', 'weather', 'species', 'leaderboard', 'verifier'];
+  const views = ['map', 'weather', 'species', 'recipes', 'leaderboard', 'verifier'];
   views.forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) {
@@ -1480,6 +1480,16 @@ function switchTab(tabName) {
         btn.classList.add('text-slate-400');
       }
     }
+
+    // Mobile nav tab buttons active style
+    const mBtn = document.getElementById(`mobile-tab-${v}`);
+    if (mBtn) {
+      if (v === tabName) {
+        mBtn.className = 'mobile-tab px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-400 whitespace-nowrap font-bold';
+      } else {
+        mBtn.className = 'mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap';
+      }
+    }
   });
 
   // Re-invalidate map size if switching to map
@@ -1487,6 +1497,11 @@ function switchTab(tabName) {
     setTimeout(() => {
       state.mapInstance.invalidateSize();
     }, 200);
+  }
+
+  // Auto-init recipes if opening recipes tab
+  if (tabName === 'recipes') {
+    initRecipesView();
   }
 
   // Refresh icons
@@ -2301,6 +2316,12 @@ function renderSpeciesGrid(speciesList) {
         <i data-lucide="crosshair" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
         <span>Kỹ thuật: ${s.tackle_technique}</span>
       </div>
+
+      <!-- Action Button to Cooking Recipes -->
+      <button onclick="openRecipesForFish('${s.common_name}')" class="w-full mt-3 py-2.5 px-3 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-500 hover:to-orange-500 text-white rounded-xl font-bold text-xs shadow-md shadow-amber-950/40 transition-all flex items-center justify-center gap-2 transform hover:scale-[1.01] active:scale-[0.99]">
+        <i data-lucide="chef-hat" class="w-4 h-4 text-amber-200"></i>
+        <span>🍳 Xem Hướng Dẫn Chế Biến (${recipes.length} Món Có Link Video)</span>
+      </button>
       </div>
     </div>
     `;
@@ -2312,17 +2333,7 @@ function renderSpeciesGrid(speciesList) {
 }
 
 function viewFishRecipes(speciesName) {
-  switchTab('species');
-  setTimeout(() => {
-    // Find matching card
-    const targetId = `species-card-${speciesName.replace(/[^a-zA-Z0-9]/g, '-')}`;
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      el.classList.add('ring-2', 'ring-amber-400');
-      setTimeout(() => el.classList.remove('ring-2', 'ring-amber-400'), 2500);
-    }
-  }, 300);
+  openRecipesForFish(speciesName);
 }
 
 // ==========================================
@@ -3016,608 +3027,338 @@ async function commitCatchToLeaderboard() {
 }
 
 
-
 // ==========================================
-// 5. FISHBOT AI CHAT ASSISTANT
+// 5. BẾP CẦN THỦ - CHẾ BIẾN MÓN NGON
 // ==========================================
 
-let storedAiModel = localStorage.getItem('fishmap_ai_model');
-if (!storedAiModel || (storedAiModel.startsWith('gemini-') && storedAiModel !== 'gemini-3.8-flash')) {
-  storedAiModel = 'gemini-3.8-flash';
-  localStorage.setItem('fishmap_ai_model', storedAiModel);
-}
-
-const aiChatState = {
-  isOpen: false,
-  apiKey: localStorage.getItem('fishmap_ai_key') || '',
-  provider: localStorage.getItem('fishmap_ai_provider') || 'gemini',
-  model: storedAiModel,
-  messages: [],
-  isGenerating: false
+const recipeFilterState = {
+  fish: 'all',
+  method: 'all',
+  search: ''
 };
 
-function initAiChat() {
-  const keyInput = document.getElementById('ai-api-key-input');
-  const providerSelect = document.getElementById('ai-provider-select');
-  const modelSelect = document.getElementById('ai-model-select');
-
-  if (aiChatState.model && aiChatState.model.startsWith('gemini-') && aiChatState.model !== 'gemini-3.8-flash') {
-    aiChatState.model = 'gemini-3.8-flash';
-    localStorage.setItem('fishmap_ai_model', 'gemini-3.8-flash');
-  }
-
-  if (keyInput && aiChatState.apiKey) keyInput.value = aiChatState.apiKey;
-  if (providerSelect && aiChatState.provider) providerSelect.value = aiChatState.provider;
-  if (modelSelect) {
-    if (aiChatState.model) modelSelect.value = aiChatState.model;
-    if (!modelSelect.value || (modelSelect.value.startsWith('gemini-') && modelSelect.value !== 'gemini-3.8-flash')) {
-      modelSelect.value = 'gemini-3.8-flash';
-      aiChatState.model = 'gemini-3.8-flash';
-      localStorage.setItem('fishmap_ai_model', 'gemini-3.8-flash');
-    }
-  }
-
-  updateApiKeyUiStatus();
-}
-
-function updateApiKeyUiStatus() {
-  const statusPill = document.getElementById('ai-status-pill');
-  const activeDot = document.getElementById('api-key-active-dot');
-  const statusMsg = document.getElementById('ai-key-status-msg');
-
-  if (aiChatState.apiKey && aiChatState.apiKey.trim().length > 10) {
-    if (statusPill) {
-      statusPill.className = 'text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800';
-      statusPill.innerText = 'Key: ' + (aiChatState.provider === 'openai' ? 'OpenAI' : 'Gemini AI');
-    }
-    if (activeDot) activeDot.classList.remove('hidden');
-    if (statusMsg) {
-      statusMsg.innerHTML = '<span class="text-emerald-400 font-semibold">✓ Đã kích hoạt API Key (' + (aiChatState.provider === 'openai' ? 'OpenAI' : 'Google Gemini') + ')</span>';
-    }
-  } else {
-    if (statusPill) {
-      statusPill.className = 'text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800';
-      statusPill.innerText = 'Chế độ Demo';
-    }
-    if (activeDot) activeDot.classList.add('hidden');
-    if (statusMsg) {
-      statusMsg.innerHTML = '<span class="text-slate-400">⚡ Đang chạy Chế độ Mẫu Offline. Thêm Gemini API Key để trò chuyện không giới hạn!</span>';
-    }
-  }
-}
-
-function toggleAiChat() {
-  const windowEl = document.getElementById('ai-chat-window');
-  if (!windowEl) return;
-
-  aiChatState.isOpen = !aiChatState.isOpen;
-  if (aiChatState.isOpen) {
-    windowEl.classList.remove('hidden');
-    const inputEl = document.getElementById('ai-chat-input');
-    if (inputEl) inputEl.focus();
-    if (window.lucide) lucide.createIcons();
-    const msgContainer = document.getElementById('ai-chat-messages');
-    if (msgContainer) msgContainer.scrollTop = msgContainer.scrollHeight;
-  } else {
-    windowEl.classList.add('hidden');
-  }
-}
-
-function toggleApiKeyModal() {
-  const panel = document.getElementById('ai-chat-settings-panel');
-  if (panel) {
-    panel.classList.toggle('hidden');
-    if (window.lucide) lucide.createIcons();
-  }
-}
-
-function toggleApiKeyVisibility() {
-  const input = document.getElementById('ai-api-key-input');
-  const eye = document.getElementById('eye-icon');
-  if (!input) return;
-  if (input.type === 'password') {
-    input.type = 'text';
-    if (eye) eye.setAttribute('data-lucide', 'eye-off');
-  } else {
-    input.type = 'password';
-    if (eye) eye.setAttribute('data-lucide', 'eye');
-  }
-  if (window.lucide) lucide.createIcons();
-}
-
-function handleProviderChange() {
-  const provider = document.getElementById('ai-provider-select')?.value || 'gemini';
-  const modelSelect = document.getElementById('ai-model-select');
-  const keyInput = document.getElementById('ai-api-key-input');
-
-  if (provider === 'gemini') {
-    if (keyInput) keyInput.placeholder = 'Dán Gemini API Key (AIzaSy...)';
-    if (modelSelect) {
-      modelSelect.innerHTML = `
-        <option value="gemini-3.8-flash" selected>gemini-3.8-flash (Khuyên dùng - Chuẩn mới nhất & Siêu tốc)</option>
-      `;
-    }
-  } else {
-    if (keyInput) keyInput.placeholder = 'Dán OpenAI API Key (sk-...)';
-    if (modelSelect) {
-      modelSelect.innerHTML = `
-        <option value="gpt-4o-mini" selected>gpt-4o-mini (Nhanh & Tiết kiệm)</option>
-        <option value="gpt-4o">gpt-4o (Mạnh mẽ)</option>
-      `;
-    }
-  }
-}
-
-async function testApiKeyConnection() {
-  const key = document.getElementById('ai-api-key-input')?.value.trim();
-  const provider = document.getElementById('ai-provider-select')?.value || 'gemini';
-  const model = document.getElementById('ai-model-select')?.value || 'gemini-3.8-flash';
-  const statusMsg = document.getElementById('ai-key-status-msg');
-
-  if (!key || key.length < 10) {
-    if (statusMsg) statusMsg.innerHTML = '<span class="text-amber-400 font-semibold">⚠️ Vui lòng dán API Key trước khi kiểm tra!</span>';
-    return;
-  }
-
-  if (statusMsg) statusMsg.innerHTML = `<span class="text-cyan-400 font-semibold animate-pulse">⏳ Đang kiểm tra kết nối tới mô hình \`${escapeHtml(model)}\`...</span>`;
-
-  try {
-    const testMessages = [{ role: 'user', content: 'Xin chào, trả lời 1 từ OK' }];
-    if (provider === 'openai' || key.startsWith('sk-')) {
-      await callOpenAiApi(key, model, testMessages, 'Bạn là trợ lý ngắn gọn.');
-    } else {
-      await callGeminiApi(key, model, testMessages, 'Bạn là trợ lý ngắn gọn.');
-    }
-    if (statusMsg) {
-      statusMsg.innerHTML = `<span class="text-emerald-400 font-bold">✅ Kết nối thành công! Mô hình \`${escapeHtml(model)}\` hoạt động hoàn hảo!</span>`;
-    }
-  } catch (err) {
-    if (statusMsg) {
-      statusMsg.innerHTML = `<span class="text-rose-400 font-semibold leading-relaxed">❌ <strong>Lỗi API:</strong> ${escapeHtml(err.message)}</span>`;
-    }
-  }
-}
-
-function saveApiKeySettings() {
-  const key = document.getElementById('ai-api-key-input')?.value.trim() || '';
-  const provider = document.getElementById('ai-provider-select')?.value || 'gemini';
-  const model = document.getElementById('ai-model-select')?.value || 'gemini-3.8-flash';
-
-  aiChatState.apiKey = key;
-  aiChatState.provider = provider;
-  aiChatState.model = model;
-
-  localStorage.setItem('fishmap_ai_key', key);
-  localStorage.setItem('fishmap_ai_provider', provider);
-  localStorage.setItem('fishmap_ai_model', model);
-
-  updateApiKeyUiStatus();
-  toggleApiKeyModal();
-
-  appendAiMessageBubble(
-    key 
-      ? `✅ Đã lưu thành công **${provider === 'openai' ? 'OpenAI' : 'Google Gemini'} API Key** (Model: \`${model}\`)! Bây giờ bạn có thể hỏi tôi bất kỳ câu hỏi nào về câu cá, kỹ thuật phao đài, bài mồi hoặc điểm câu toàn quốc!`
-      : `ℹ️ Đã chuyển về chế độ mẫu Offline.`
-  );
-}
-
-function removeApiKeySettings() {
-  localStorage.removeItem('fishmap_ai_key');
-  aiChatState.apiKey = '';
-  const keyInput = document.getElementById('ai-api-key-input');
-  if (keyInput) keyInput.value = '';
-
-  updateApiKeyUiStatus();
-  toggleApiKeyModal();
-  appendAiMessageBubble('🗑️ Đã xóa API Key. Hiện tại hệ thống đang chạy ở **Chế độ Mẫu (Offline)**.');
-}
-
-function clearAiChat() {
-  const container = document.getElementById('ai-chat-messages');
-  if (!container) return;
-  aiChatState.messages = [];
-  container.innerHTML = `
-    <div class="flex items-start gap-2.5">
-      <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center text-white shrink-0 shadow">
-        <i data-lucide="bot" class="w-4 h-4"></i>
-      </div>
-      <div class="chat-bubble-ai p-3 space-y-2 max-w-[85%] text-xs">
-        <p class="font-bold text-cyan-300">Đoạn chat đã được đặt lại!</p>
-        <p class="text-slate-300">Hãy đặt câu hỏi về bài mồi, hồ câu hoặc thời tiết cắn câu để bắt đầu nhé.</p>
-      </div>
-    </div>
-  `;
-  if (window.lucide) lucide.createIcons();
-}
-
-function sendQuickPrompt(promptText) {
-  const input = document.getElementById('ai-chat-input');
-  if (input) {
-    input.value = promptText;
-    handleChatSubmit(new Event('submit'));
-  }
-}
-
-function appendUserMessageBubble(text) {
-  const container = document.getElementById('ai-chat-messages');
-  if (!container) return;
-
-  const div = document.createElement('div');
-  div.className = 'flex justify-end';
-  div.innerHTML = `
-    <div class="chat-bubble-user p-3 max-w-[85%] text-xs leading-relaxed">
-      <p>${escapeHtml(text)}</p>
-    </div>
-  `;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
-}
-
-function appendAiMessageBubble(markdownText) {
-  const container = document.getElementById('ai-chat-messages');
-  if (!container) return;
-
-  const div = document.createElement('div');
-  div.className = 'flex items-start gap-2.5';
-  div.innerHTML = `
-    <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center text-white shrink-0 shadow mt-0.5">
-      <i data-lucide="bot" class="w-4 h-4"></i>
-    </div>
-    <div class="chat-bubble-ai p-3 space-y-1.5 max-w-[85%] text-xs ai-chat-markdown leading-relaxed">
-      ${formatAiMarkdown(markdownText)}
-    </div>
-  `;
-  container.appendChild(div);
-  if (window.lucide) lucide.createIcons();
-  container.scrollTop = container.scrollHeight;
-}
-
 function escapeHtml(text) {
+  if (!text) return '';
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
-function formatAiMarkdown(text) {
-  if (!text) return '';
-  let html = text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+function getAllCulinaryRecipes() {
+  const speciesList = (state.species && state.species.length > 0) ? state.species : DEFAULT_SPECIES;
+  const allRecipes = [];
 
-  // Bold **text**
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  // Italic *text*
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  // Code `code`
-  html = html.replace(/`(.*?)`/g, '<code>$1</code>');
-  // Markdown links [text](url)
-  html = html.replace(/\[(.*?)\]\((https?:\/\/.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline font-semibold">$1</a>');
+  speciesList.forEach(sp => {
+    const fishName = sp.common_name;
+    const fishImg = getFishImage(fishName);
+    const recipes = sp.culinary_recipes || [];
 
-  const lines = html.split('\n');
-  let inList = false;
-  let formatted = [];
+    recipes.forEach((r, idx) => {
+      const dishName = r.dish_name;
+      // Curated Direct Search Links
+      const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent('cách làm ' + dishName)}`;
+      const googleRecipeUrl = `https://www.google.com/search?q=${encodeURIComponent('công thức nấu món ' + dishName)}`;
 
-  for (let line of lines) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('### ')) {
-      if (inList) { formatted.push('</ul>'); inList = false; }
-      formatted.push(`<h4 class="font-bold text-cyan-300 mt-2 mb-1">${trimmed.substring(4)}</h4>`);
-    } else if (trimmed.startsWith('## ')) {
-      if (inList) { formatted.push('</ul>'); inList = false; }
-      formatted.push(`<h3 class="font-bold text-white text-sm mt-2.5 mb-1">${trimmed.substring(3)}</h3>`);
-    } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-      if (!inList) {
-        formatted.push('<ul class="space-y-1 my-1.5">');
-        inList = true;
-      }
-      formatted.push(`<li>${trimmed.substring(2)}</li>`);
-    } else {
-      if (inList) {
-        formatted.push('</ul>');
-        inList = false;
-      }
-      if (trimmed === '') {
-        formatted.push('<div class="h-1.5"></div>');
-      } else {
-        formatted.push(`<p>${trimmed}</p>`);
-      }
-    }
-  }
-  if (inList) formatted.push('</ul>');
-  return formatted.join('');
-}
-
-async function handleChatSubmit(e) {
-  if (e) e.preventDefault();
-  if (aiChatState.isGenerating) return;
-
-  const inputEl = document.getElementById('ai-chat-input');
-  if (!inputEl) return;
-  const userText = inputEl.value.trim();
-  if (!userText) return;
-
-  inputEl.value = '';
-
-  appendUserMessageBubble(userText);
-  aiChatState.messages.push({ role: 'user', content: userText });
-
-  const quickPrompts = document.getElementById('ai-quick-prompts');
-  if (quickPrompts) quickPrompts.classList.add('hidden');
-
-  const indicator = document.getElementById('ai-typing-indicator');
-  if (indicator) indicator.classList.remove('hidden');
-  aiChatState.isGenerating = true;
-
-  try {
-    let reply = '';
-    const systemPrompt = generateFishingSystemPrompt();
-
-    // 1. Direct browser fetch if user entered an API key (Ideal for Vercel & client isolation)
-    if (aiChatState.apiKey && aiChatState.apiKey.trim().length > 10) {
-      if (aiChatState.provider === 'openai' || aiChatState.apiKey.startsWith('sk-')) {
-        reply = await callOpenAiApi(aiChatState.apiKey, aiChatState.model, aiChatState.messages, systemPrompt);
-      } else {
-        reply = await callGeminiApi(aiChatState.apiKey, aiChatState.model, aiChatState.messages, systemPrompt);
-      }
-    } else {
-      // 2. Optional local backend check /api/chat (in case GEMINI_API_KEY is configured in backend environment)
-      let backendHandled = false;
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: aiChatState.messages,
-            provider: aiChatState.provider,
-            model: aiChatState.model,
-            system_prompt: systemPrompt
-          })
-        });
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.reply) {
-            reply = json.reply;
-            backendHandled = true;
-          }
-        }
-      } catch (e) {
-        // Silent fallback to local rule-based engine
-      }
-
-      // 3. Fallback to comprehensive offline fishing expert response
-      if (!backendHandled) {
-        await new Promise(r => setTimeout(r, 600));
-        reply = generateOfflineResponse(userText);
-      }
-    }
-
-    aiChatState.messages.push({ role: 'assistant', content: reply });
-    appendAiMessageBubble(reply);
-
-  } catch (err) {
-    console.error('Lỗi phản hồi AI:', err);
-    const rawError = err.message || 'Không thể lấy phản hồi từ máy chủ AI';
-
-    // Detailed error categorization
-    let advice = '';
-    if (rawError.includes('API_KEY_INVALID') || rawError.includes('API key not valid') || rawError.includes('401')) {
-      advice = '🔑 **Nguyên nhân:** Khóa API Key chưa chính xác hoặc đã bị vô hiệu hóa. Bạn vui lòng kiểm tra lại trong phần Cài đặt ⚙️ hoặc tạo key mới tại [Google AI Studio](https://aistudio.google.com/app/apikey).';
-    } else if (rawError.includes('not found') || rawError.includes('404')) {
-      advice = '🔍 **Nguyên nhân:** Tên mô hình không tồn tại hoặc đã ngừng hỗ trợ trên phiên bản API này. Vui lòng vào Cài đặt ⚙️ và chọn `gemini-3.8-flash`.';
-    } else if (rawError.includes('RESOURCE_EXHAUSTED') || rawError.includes('429')) {
-      advice = '⏳ **Nguyên nhân:** Bạn đã vượt quá hạn mức lượt gọi (Rate Limit / Quota Exhausted) của tài khoản. Vui lòng chờ 1 phút hoặc đổi sang API Key khác.';
-    } else {
-      advice = '💡 *Gợi ý: Bạn có thể bấm vào biểu tượng ⚙️ (Cài đặt) ở góc trên để đổi Model hoặc kiểm tra lại kết nối.*';
-    }
-
-    appendAiMessageBubble(`⚠️ **Thông báo lỗi từ API:**\n\n> \`${rawError}\`\n\n${advice}`);
-  } finally {
-    aiChatState.isGenerating = false;
-    if (indicator) indicator.classList.add('hidden');
-  }
-}
-
-async function callGeminiApi(apiKey, model, messages, systemPrompt) {
-  const cleanKey = (apiKey || '').trim();
-  let cleanModel = (model || 'gemini-3.8-flash').trim();
-  if (cleanModel.startsWith('models/')) {
-    cleanModel = cleanModel.substring(7);
-  }
-  if (!cleanModel || (cleanModel.startsWith('gemini-') && cleanModel !== 'gemini-3.8-flash')) {
-    cleanModel = 'gemini-3.8-flash';
-  }
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${encodeURIComponent(cleanKey)}`;
-
-  const recentMessages = messages.slice(-8);
-  const contents = recentMessages.map(m => ({
-    role: m.role === 'user' ? 'user' : 'model',
-    parts: [{ text: m.content }]
-  }));
-
-  const payload = {
-    contents: contents,
-    systemInstruction: {
-      parts: [{ text: systemPrompt }]
-    },
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 1200
-    }
-  };
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+      allRecipes.push({
+        id: `${fishName.replace(/[^a-zA-Z0-9]/g, '-')}-${idx}`,
+        fishName: fishName,
+        fishImg: fishImg,
+        dishName: dishName,
+        cookingMethod: r.cooking_method || 'Chế biến truyền thống',
+        prepTime: r.prep_time || '30 - 45 phút',
+        ingredients: r.ingredients || 'Gia vị truyền thống',
+        desc: r.desc || '',
+        chefTip: r.chef_tip || '',
+        youtubeUrl: youtubeUrl,
+        googleRecipeUrl: googleRecipeUrl
+      });
+    });
   });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    let errMsg = '';
-    if (errorData.error) {
-      const e = errorData.error;
-      const code = e.code || response.status;
-      const status = e.status || '';
-      const rawMsg = e.message || 'Không có mô tả lỗi';
-      errMsg = `[Lỗi API ${code} ${status}] ${rawMsg}`;
-    } else {
-      errMsg = `HTTP ${response.status} ${response.statusText || 'Lỗi gọi Gemini API'}`;
-    }
-    throw new Error(errMsg);
-  }
-
-  const data = await response.json();
-  const candidate = data.candidates?.[0];
-  const text = candidate?.content?.parts?.[0]?.text;
-  if (!text) {
-    const finishReason = candidate?.finishReason;
-    const blockReason = data.promptFeedback?.blockReason;
-    if (blockReason) {
-      throw new Error(`Yêu cầu bị chặn bởi bộ lọc an toàn của Google: ${blockReason}`);
-    }
-    if (finishReason && finishReason !== 'STOP') {
-      throw new Error(`Mô hình dừng phản hồi với trạng thái: ${finishReason}`);
-    }
-    throw new Error('Gemini không phản hồi văn bản (kết quả trả về rỗng).');
-  }
-  return text;
+  return allRecipes;
 }
 
-async function callOpenAiApi(apiKey, model, messages, systemPrompt) {
-  const url = 'https://api.openai.com/v1/chat/completions';
-  const recentMessages = messages.slice(-8);
-  const targetModel = model.includes('gpt') ? model : 'gpt-4o-mini';
+function initRecipesView() {
+  const allRecipes = getAllCulinaryRecipes();
 
-  const payload = {
-    model: targetModel,
-    messages: [
-      { role: 'system', content: systemPrompt },
-      ...recentMessages
-    ],
-    temperature: 0.7
-  };
+  // Update total stats
+  const totalCountEl = document.getElementById('stat-total-recipes');
+  if (totalCountEl) totalCountEl.innerText = allRecipes.length;
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify(payload)
+  renderRecipeFilterChips(allRecipes);
+  renderRecipesGrid();
+}
+
+function renderRecipeFilterChips(allRecipes) {
+  // Fish chips
+  const fishChipsContainer = document.getElementById('recipe-fish-filter-chips');
+  if (fishChipsContainer) {
+    const speciesList = (state.species && state.species.length > 0) ? state.species : DEFAULT_SPECIES;
+    
+    // Calculate count per fish
+    const fishCounts = {};
+    allRecipes.forEach(r => {
+      fishCounts[r.fishName] = (fishCounts[r.fishName] || 0) + 1;
+    });
+
+    let html = `
+      <button onclick="setRecipeFishFilter('all')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${recipeFilterState.fish === 'all' ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+        Tất cả loài cá (${allRecipes.length})
+      </button>
+    `;
+
+    speciesList.forEach(sp => {
+      const name = sp.common_name;
+      const count = fishCounts[name] || 0;
+      const isActive = recipeFilterState.fish === name;
+      html += `
+        <button onclick="setRecipeFishFilter('${name}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${isActive ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-amber-300 border border-slate-700/60'}">
+          <span>🐟 ${name}</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-amber-950 text-amber-300' : 'bg-slate-900 text-slate-400'}">${count}</span>
+        </button>
+      `;
+    });
+
+    fishChipsContainer.innerHTML = html;
+  }
+
+  // Cooking method chips
+  const methodChipsContainer = document.getElementById('recipe-method-filter-chips');
+  if (methodChipsContainer) {
+    const methods = [
+      { key: 'all', label: 'Tất cả cách nấu' },
+      { key: 'nướng', label: '🔥 Nướng & Gỏi' },
+      { key: 'om', label: '🍲 Om Dưa & Canh Chua' },
+      { key: 'kho', label: '🥘 Kho Tộ / Kho Niêu' },
+      { key: 'chiên', label: '🍳 Chiên Giòn & Áp Chảo' },
+      { key: 'hấp', label: '🥢 Hấp & Chả Cá' },
+      { key: 'lẩu', label: '🫕 Lẩu & Cháo' }
+    ];
+
+    methodChipsContainer.innerHTML = methods.map(m => {
+      const isActive = recipeFilterState.method === m.key;
+      return `
+        <button onclick="setRecipeMethodFilter('${m.key}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${isActive ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-amber-300 border border-slate-700/60'}">
+          ${m.label}
+        </button>
+      `;
+    }).join('');
+  }
+}
+
+function renderRecipesGrid() {
+  const grid = document.getElementById('recipes-catalog-grid');
+  if (!grid) return;
+
+  const allRecipes = getAllCulinaryRecipes();
+
+  // Filter recipes
+  const filtered = allRecipes.filter(r => {
+    // Fish filter
+    if (recipeFilterState.fish !== 'all' && r.fishName !== recipeFilterState.fish) {
+      return false;
+    }
+    // Method filter
+    if (recipeFilterState.method !== 'all') {
+      const searchTarget = (r.cookingMethod + ' ' + r.dishName).toLowerCase();
+      if (!searchTarget.includes(recipeFilterState.method.toLowerCase())) {
+        return false;
+      }
+    }
+    // Search keyword
+    if (recipeFilterState.search) {
+      const query = recipeFilterState.search.toLowerCase();
+      const matchName = r.dishName.toLowerCase().includes(query);
+      const matchFish = r.fishName.toLowerCase().includes(query);
+      const matchIng = r.ingredients.toLowerCase().includes(query);
+      const matchDesc = r.desc.toLowerCase().includes(query);
+      if (!matchName && !matchFish && !matchIng && !matchDesc) {
+        return false;
+      }
+    }
+    return true;
   });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    const errMsg = errorData.error?.message 
-      ? `[OpenAI ${errorData.error.type || response.status}] ${errorData.error.message}`
-      : `HTTP ${response.status}: ${response.statusText || 'Lỗi gọi OpenAI API'}`;
-    throw new Error(errMsg);
+  // Update display count
+  const countEl = document.getElementById('recipe-count-display');
+  if (countEl) countEl.innerText = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="col-span-full py-16 text-center bg-slate-900/60 rounded-3xl border border-slate-800 p-8 space-y-3">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+          <i data-lucide="utensils-crossed" class="w-7 h-7"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-200">Không tìm thấy món ăn phù hợp</h3>
+        <p class="text-xs text-slate-400 max-w-md mx-auto">
+          Không có món ăn nào khớp với từ khóa "<strong>${escapeHtml(recipeFilterState.search)}</strong>". Hãy thử tìm bằng tên loài cá hoặc đặt lại bộ lọc.
+        </p>
+        <button onclick="resetRecipeFilters()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-md">
+          Đặt lại bộ lọc
+        </button>
+      </div>
+    `;
+    if (window.lucide) lucide.createIcons();
+    return;
   }
 
-  const data = await response.json();
-  return data.choices?.[0]?.message?.content || 'Không có phản hồi.';
+  grid.innerHTML = filtered.map(r => {
+    return `
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between overflow-hidden hover:border-amber-500/50 transition-all group font-['Plus_Jakarta_Sans']">
+        <!-- Card Header Image & Badges -->
+        <div class="relative w-full h-44 bg-slate-950 overflow-hidden">
+          <img src="${r.fishImg}" alt="${r.dishName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+          
+          <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+            <button onclick="setRecipeFishFilter('${r.fishName}')" title="Lọc các món từ cá này" class="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-amber-950/90 hover:bg-amber-900 text-amber-300 border border-amber-700/80 backdrop-blur-sm shadow transition-all flex items-center gap-1">
+              <span>🐟 ${r.fishName}</span>
+            </button>
+          </div>
+
+          <div class="absolute top-2.5 right-2.5">
+            <span class="px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700 backdrop-blur-sm shadow flex items-center gap-1">
+              <i data-lucide="clock" class="w-3 h-3 text-amber-400"></i>
+              <span>${r.prepTime}</span>
+            </span>
+          </div>
+
+          <div class="absolute bottom-2.5 left-3 right-3">
+            <h3 class="text-base sm:text-lg font-extrabold text-white tracking-wide">${r.dishName}</h3>
+            <span class="text-[11px] text-amber-300 font-semibold flex items-center gap-1 mt-0.5">
+              <span>🔥</span> <span>${r.cookingMethod}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5 text-xs">
+          <!-- Description -->
+          <p class="text-slate-300 text-xs leading-relaxed">${r.desc}</p>
+
+          <!-- Ingredients -->
+          <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 space-y-1">
+            <div class="font-bold text-amber-300 flex items-center gap-1 text-[11px]">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Nguyên liệu & Gia vị chính:</span>
+            </div>
+            <p class="text-[11px] text-slate-300 leading-relaxed">${r.ingredients}</p>
+          </div>
+
+          <!-- Chef Tip -->
+          ${r.chefTip ? `
+            <div class="bg-emerald-950/30 p-2.5 rounded-xl border border-emerald-800/40 text-[11px] text-emerald-200 flex items-start gap-1.5">
+              <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-emerald-300">Bí quyết vàng:</strong>
+                <span class="text-slate-300">${r.chefTip}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Cooking Steps Accordion -->
+          <div class="border-t border-slate-800/80 pt-2">
+            <button onclick="toggleRecipeSteps('steps-${r.id}')" class="w-full flex items-center justify-between text-slate-400 hover:text-amber-300 py-1 text-[11px] font-bold transition-all">
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Xem 4 bước chế biến chi tiết</span>
+              </span>
+              <i data-lucide="chevron-down" id="arrow-steps-${r.id}" class="w-3.5 h-3.5 transition-transform"></i>
+            </button>
+            <div id="steps-${r.id}" class="hidden pt-2 space-y-1.5 text-[11px] text-slate-300">
+              <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800/80 space-y-1.5 leading-relaxed">
+                <p><strong class="text-cyan-300">Bước 1 (Sơ chế):</strong> Làm sạch nhớt cá với muối hạt và gừng đập dập. Khía vảy chéo thân cá hoặc phi lê mỏng để gia vị ngấm đều.</p>
+                <p><strong class="text-cyan-300">Bước 2 (Tẩm ướp):</strong> Trộn đều các loại gia vị đặc trưng (${r.ingredients.split(',').slice(0, 3).join(', ')}...) ướp trong 20-30 phút.</p>
+                <p><strong class="text-cyan-300">Bước 3 (Chế biến):</strong> Thực hiện theo phương pháp <em>${r.cookingMethod}</em>. Canh lửa vừa để thịt cá chín tới, săn chắc và giữ nguyên độ ngọt tự nhiên.</p>
+                <p><strong class="text-cyan-300">Bước 4 (Thưởng thức):</strong> Dọn lên đĩa trang trí rau thơm, dùng ngay khi nóng để cảm nhận trọn vẹn hương vị đặc sản!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cooking Guide Links (User Requested Feature) -->
+          <div class="pt-2.5 border-t border-slate-800 space-y-1.5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+              <i data-lucide="external-link" class="w-3 h-3 text-cyan-400"></i>
+              <span>Link hướng dẫn nấu ăn đính kèm:</span>
+            </span>
+            <div class="grid grid-cols-2 gap-2">
+              <a href="${r.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2 px-2 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-600/40 hover:border-rose-500 rounded-xl font-bold text-[11px] transition-all shadow-sm group/btn">
+                <i data-lucide="play-circle" class="w-3.5 h-3.5 text-rose-400 group-hover/btn:text-white"></i>
+                <span>Video YouTube</span>
+              </a>
+              <a href="${r.googleRecipeUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2 px-2 bg-cyan-600/20 hover:bg-cyan-600 text-cyan-300 hover:text-white border border-cyan-600/40 hover:border-cyan-500 rounded-xl font-bold text-[11px] transition-all shadow-sm group/btn">
+                <i data-lucide="book-open" class="w-3.5 h-3.5 text-cyan-400 group-hover/btn:text-white"></i>
+                <span>Đọc Công Thức</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 }
 
-function generateFishingSystemPrompt() {
-  const lakes = (state.lakes && state.lakes.length > 0) ? state.lakes : DEFAULT_LAKES;
-  const lakeNames = lakes.map(l => `${l.name} (${l.province}, độ sâu ${l.water_depth_m}m, loại: ${l.lake_type})`).join('; ');
+function openRecipesForFish(fishName) {
+  switchTab('recipes');
+  recipeFilterState.fish = fishName;
+  recipeFilterState.method = 'all';
+  recipeFilterState.search = '';
+  const searchInput = document.getElementById('recipe-search-input');
+  if (searchInput) searchInput.value = '';
 
-  const speciesList = (typeof DEFAULT_SPECIES !== 'undefined' && Array.isArray(DEFAULT_SPECIES))
-    ? DEFAULT_SPECIES.map(s => `- ${s.common_name}: Mồi (${s.best_baits}), Kỹ thuật (${s.tackle_technique}), Khí áp (${s.optimal_pressure_hpa})`).join('\n')
-    : '11 loài cá: Trắm đen, chép, trắm trắng, rô phi, trôi, trê, tra bò, quả/lóc, chẽm, lăng, ngừ đại dương';
+  const allRecipes = getAllCulinaryRecipes();
+  renderRecipeFilterChips(allRecipes);
+  renderRecipesGrid();
 
-  return `Bạn là "FishBot AI" - Cố vấn câu cá thể thao, bài mồi & bản đồ điểm câu thông minh của FishMap VN.
-Bạn xưng hô thân mật, am hiểu và nhiệt tình ("chào cần thủ", "anh em cần thủ").
-Bạn nắm rõ toàn bộ hệ sinh thái của ứng dụng FishMap VN:
-1. Danh sách 30 điểm câu toàn quốc của FishMap VN: ${lakeNames}.
-2. Danh mục 11 loài cá đặc trưng & kinh nghiệm câu:
-${speciesList}
-3. Kiến thức câu cá:
-   - Áp suất khí quyển: 1010 - 1015 hPa là thời điểm vàng cá cắn câu mạnh. Dưới 1009 hPa bóng khí cá căng, cá lặn sâu kén ăn.
-   - Kỹ thuật: Câu đài, câu lục, câu lure (mồi giả), câu ngâm, phao ngày đêm.
-   - Ẩm thực: Biết rõ các món ăn đặc sản chế biến từ từng loài cá (cá om dưa, canh chua, nướng muối ớt, chả cá Lã Vọng...).
-4. Nguyên tắc bắt buộc: Quần đảo Hoàng Sa (thuộc TP. Đà Nẵng) và Quần đảo Trường Sa (thuộc tỉnh Khánh Hòa) là lãnh thổ chủ quyền thiêng liêng bất khả xâm phạm của Việt Nam.
-Hãy trả lời ngắn gọn, súc tích, sinh động, dùng các gạch đầu dòng rõ ràng và emoji vui vẻ!`;
+  const container = document.getElementById('view-recipes');
+  if (container) {
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
-function generateOfflineResponse(userText) {
-  const lower = userText.toLowerCase();
+function setRecipeFishFilter(fish) {
+  recipeFilterState.fish = fish;
+  const allRecipes = getAllCulinaryRecipes();
+  renderRecipeFilterChips(allRecipes);
+  renderRecipesGrid();
+}
 
-  if (lower.includes('trắm đen')) {
-    return `🐟 **Kinh nghiệm câu Cá Trắm Đen:**
-- **Tầng nước:** Tầng đáy sát bùn (sâu 2m - 8m).
-- **Bài mồi vàng:** Ốc vặn sống đập nứt vỏ 30%, ủ với men bia hoặc trứng vịt lộn 24h. Xả ổ gọn một điểm để gom cá.
-- **Khí áp thích hợp:** 1010 - 1016 hPa (Trắm đen ăn cực mạnh khi áp suất cao, trời có gió nhẹ).
-- **Hồ gợi ý:** Hồ Suối Hai (Ba Vì), Hồ Đồng Đò (Sóc Sơn), Hồ Núi Cốc (Thái Nguyên).
-- **🍲 Món ngon:** Trắm đen kho riềng sả củi gộc 12 tiếng, cá trắm nướng muối ớt cuốn bánh tráng!`;
+function setRecipeMethodFilter(method) {
+  recipeFilterState.method = method;
+  const allRecipes = getAllCulinaryRecipes();
+  renderRecipeFilterChips(allRecipes);
+  renderRecipesGrid();
+}
+
+function filterRecipes() {
+  const input = document.getElementById('recipe-search-input');
+  recipeFilterState.search = input?.value?.trim() || '';
+  renderRecipesGrid();
+}
+
+function resetRecipeFilters() {
+  recipeFilterState.fish = 'all';
+  recipeFilterState.method = 'all';
+  recipeFilterState.search = '';
+  const input = document.getElementById('recipe-search-input');
+  if (input) input.value = '';
+
+  const allRecipes = getAllCulinaryRecipes();
+  renderRecipeFilterChips(allRecipes);
+  renderRecipesGrid();
+}
+
+function toggleRecipeSteps(id) {
+  const el = document.getElementById(id);
+  const arrow = document.getElementById(`arrow-${id}`);
+  if (!el) return;
+  el.classList.toggle('hidden');
+  if (arrow) {
+    arrow.classList.toggle('rotate-180');
   }
-
-  if (lower.includes('chép') || lower.includes('chép giòn')) {
-    return `🐟 **Kinh nghiệm săn Cá Chép:**
-- **Tầng nước:** Tầng đáy gợn sóng hoặc mép cỏ nước ngọt.
-- **Bài mồi vàng:** Ngô non ngọt luộc + cám ngô rang mật ong, hoặc khoai lang nướng nghiền trộn men chua thơm.
-- **Mẹo cắn câu:** Chép rất tinh ranh và nhát cước. Dùng thẻo dài mềm, phao đài nhạy, giữ im lặng tối đa tại điểm câu.
-- **Hồ gợi ý:** Hồ Tây (Hà Nội), Hồ Cấm Sơn (Bắc Giang), Hồ Tuy Lai (Mỹ Đức).
-- **🍲 Món ngon:** Cá chép om dưa thì là, lẩu chép giòn nhúng mẻ, cá chép hấp bia!`;
-  }
-
-  if (lower.includes('lăng')) {
-    return `🐟 **Kinh nghiệm câu Cá Lăng:**
-- **Tầng nước:** Đáy sâu vùng nước chảy xiết, chân đập hoặc ghềnh đá ngầm.
-- **Bài mồi vàng:** Cá mương / cá rô phi nhỏ sống móc lưng thả đáy; hoặc mực tươi ủ tanh.
-- **Điểm câu nổi tiếng:** Hồ Thác Bà (Yên Bái - thủ phủ cá lăng), Hồ Hòa Bình (Sông Đà), Sông Sài Gòn.
-- **🍲 Món ngon:** Chả cá Lăng nướng than hoa (kiểu Lã Vọng), lẩu cá lăng nấu măng chua cay, cá lăng nướng muối ớt xanh!`;
-  }
-
-  if (lower.includes('lóc') || lower.includes('cá quả')) {
-    return `🐟 **Kinh nghiệm câu Lure Cá Quả / Lóc:**
-- **Tầng nước:** Tầng mặt và tầng lửng gần bờ cỏ, hoa sen, bèo tây.
-- **Mồi câu:** Mồi nhái hơi (Frog lure chống vướng), spinnerbait, cá sắt vibrator, hoặc nhái đồng sống.
-- **Thời điểm:** Sáng sớm (6h - 8h) hoặc chiều tà (16h - 18h) khi cá lóc săn mồi ven bờ.
-- **Hồ gợi ý:** Hồ Búng Bình Thiên (An Giang), Kênh Vĩnh Tế, Hồ Đồng Xanh - Đồng Nghệ.
-- **🍲 Món ngon:** Cá lóc nướng trui rơm cuốn bánh tráng rau rừng, canh chua cá lóc bông!`;
-  }
-
-  if (lower.includes('hồ tây')) {
-    return `📍 **Thông tin điểm câu Hồ Tây (Hà Nội):**
-- **Độ sâu:** 3.2m • Nước ngọt đô thị.
-- **Loài cá chính:** Cá trắm đen khủng, cá chép cụ, cá trôi, cá mè, cá rô phi.
-- **Bài mồi khuyên dùng:** Ốc vặn ủ trứng vịt lộn (săn trắm đen); ngô ngọt ủ chua (săn chép).
-- **Chi phí:** Miễn phí tại các mỏm bờ mở / có thu phí một số khu vực dịch vụ quản lý.
-- **Google Maps:** [Mở chỉ đường Hồ Tây](https://www.google.com/maps/search/?api=1&query=H%E1%BB%93+T%C3%A2y%2C+T%C3%A2y+H%E1%BB%93%2C+H%C3%A0+N%E1%BB%99i)`;
-  }
-
-  if (lower.includes('núi cốc')) {
-    return `📍 **Thông tin Hồ Núi Cốc (Thái Nguyên):**
-- **Độ sâu:** 25m • Hồ thủy lợi du lịch sinh thái rộng 25km².
-- **Loài cá:** Trắm đen, chép, trắm trắng, trôi, rô phi.
-- **Bài mồi:** Ngô non luộc + cám gạo rang bột tỏi. Khu vực Đảo Cọ cá tụ nhiều nhất.
-- **Google Maps:** [Mở chỉ đường Hồ Núi Cốc](https://www.google.com/maps/place/H%E1%BB%93+N%C3%BAi+C%E1%BB%91c/@21.5684375,105.6518467,13z/data=!3m1!4b1!4m6!3m5!1s0x3134dea8853204a9:0x23449a4c113da7c1!8m2!3d21.5815814!4d105.6969788!16s%2Fm%2F0cc905v?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D)`;
-  }
-
-  if (lower.includes('khí áp') || lower.includes('thời tiết') || lower.includes('áp suất')) {
-    return `🌦️ **Nguyên lý Khí Áp Cắn Câu (Solunar Fishing Index):**
-- **1010 - 1015 hPa (Vàng):** Áp suất lý tưởng nhất! Bóng khí của cá thư giãn, cá bơi lơ lửng tìm mồi rất tích cực.
-- **Dưới 1009 hPa (Kém):** Áp suất thấp (trời nồm, chuẩn bị bão). Bóng khí nở căng làm cá tức bụng, lặn sâu xuống đáy và kén ăn.
-- **Trên 1016 hPa (Rất tốt):** Trời thu gió đông bắc, cá ăn bạo để tích trữ năng lượng.`;
-  }
-
-  if (lower.includes('hoàng sa') || lower.includes('trường sa')) {
-    return `🇻🇳 **Chủ quyền Biển Đảo Việt Nam:**
-- **Quần đảo Hoàng Sa** (thuộc TP. Đà Nẵng) và **Quần đảo Trường Sa** (thuộc tỉnh Khánh Hòa) là ngư trường truyền thống thiêng liêng nghìn đời của ngư dân Việt Nam.
-- Vùng biển này có nguồn tài nguyên thủy hải sản cực kỳ phong phú: Cá ngừ đại dương, cá mú cọp, cá bè trang, cá cờ gòn...
-- FishMap VN luôn tự hào khẳng định 100% chủ quyền biển đảo của Tổ quốc Việt Nam!`;
-  }
-
-  return `Chào bạn! Tôi là FishBot AI 🐟. 
-
-Tôi có thể giúp bạn giải đáp các vấn đề:
-- 🌾 **Công thức bài mồi** cho từng loài cá (Trắm đen, chép, lăng, lóc, tra...)
-- 📍 **Thông tin 30 hồ câu toàn quốc** & toạ độ chỉ đường Google Maps
-- 🌦️ **Đọc áp suất khí quyển (hPa)** xem hôm nay cá có cắn câu không
-- 🍲 **Gợi ý món ăn ngon** chế biến từ chiến tích câu được!
-
-💡 *Mẹo: Bạn có thể bấm vào biểu tượng ⚙️ ở góc trên hộp chat để nhập Gemini API Key miễn phí và trò chuyện không giới hạn với AI nhé!*`;
 }
